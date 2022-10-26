@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -14,32 +14,49 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
         
         <script src="http://localhost:8081/libs/jquery/jquery-3.4.1.min.js" type="text/javascript"></script>
+        <style>
+            /*
+            .map, .righ-panel {
+                height: 500px;
+                width: 80%;
+                float: left;
+            }
+            */
+            /* .map, .righ-panel {
+                height: 98vh;
+                width: 80vw;
+                float: left;
+            } */
+            .map {
+                position: relative;
+                border: 1px solid #000;
+            }
+            #info{
+                width: 250px;
+                position: absolute;
+                right: 10px;
+                top: 50px;
+                z-index: 1;
+                background-color: #f2f3f4;
+                min-height: 300px;
+                /* display: none; */
+                
+            }
+        </style>
     </head>
     <body onload="initialize_map();">
-        <table>
-            <tr>
-                <td>
-                    <div id="map" style="width: 80vw; height: 100vh;"></div>
-                </td>
-                <td>
-                    <button>Button</button>
-                </td>
-            </tr>
-        </table>
-        <?php include 'pgsqlAPI.php' ?>
-        <?php
-            // $myPDO = initDB();
-            // $mySRID = '4326';
-            // $pointFormat = 'POINT(12,5)';
-
-            // example1($myPDO);
-            // example2($myPDO);
-            // example3($myPDO,'4326','POINT(12,5)');
-            // $result = getResult($myPDO,$mySRID,$pointFormat);
-
-            // closeDB($myPDO);
-        ?>
+        
+                    <div id="map" class="map">
+                    <div id="info"></div>
+                    </div>
+                    <!--<div id="map" style="width: 80vw; height: 100vh;"></div>-->
+                
+                    
+                    <!-- <button>Button</button> -->
+              
+        <?php include 'inforAPI.php' ?>
         <script>
+        //$("#document").ready(function () {
             var format = 'image/png';
             var map;
             var minX = 102.107955932617;
@@ -69,6 +86,19 @@
                         }
                     })
                 });
+                //thêm dlieu covid
+                var  layerCovid = new ol.layer.Image({
+                    source: new ol.source.ImageWMS({
+                        ratio: 1,
+                        url: 'http://localhost:8080/geoserver/example/wms?',
+                        params: {
+                            'FORMAT': format,
+                            'VERSION': '1.1.1',
+                            STYLES: '',
+                            LAYERS: 'dlieu_point',
+                        }
+                    })
+                });
                 var viewMap = new ol.View({
                     center: ol.proj.fromLonLat([mapLng, mapLat]),
                     zoom: mapDefaultZoom
@@ -76,7 +106,7 @@
                 });
                 map = new ol.Map({
                     target: "map",
-                    layers: [layerBG, layerCMR_adm1],
+                    layers: [layerBG, layerCMR_adm1, layerCovid],
                     //layers: [layerCMR_adm1],
                     view: viewMap
                 });
@@ -84,9 +114,6 @@
                 
                 var styles = {
                     'MultiPolygon': new ol.style.Style({
-                        fill: new ol.style.Fill({
-                            color: 'orange'
-                        }),
                         stroke: new ol.style.Stroke({
                             color: 'yellow', 
                             width: 2
@@ -130,46 +157,30 @@
                     });
                     map.addLayer(vectorLayer);
                 }
-                function highLightGeoJsonObj(paObjJson) {
-                    var vectorSource = new ol.source.Vector({
-                        features: (new ol.format.GeoJSON()).readFeatures(paObjJson, {
-                            dataProjection: 'EPSG:4326',
-                            featureProjection: 'EPSG:3857'
-                        })
-                    });
-					vectorLayer.setSource(vectorSource);
-                    /*
-                    var vectorLayer = new ol.layer.Vector({
-                        source: vectorSource
-                    });
-                    map.addLayer(vectorLayer);
-                    */
-                }
-                function highLightObj(result) {
+                function displayObjInfo(result, coordinate)
+                {
                     //alert("result: " + result);
-                    var strObjJson = createJsonObj(result);
-                    //alert(strObjJson);
-                    var objJson = JSON.parse(strObjJson);
-                    //alert(JSON.stringify(objJson));
-                    //drawGeoJsonObj(objJson);
-                    highLightGeoJsonObj(objJson);
+                    //alert("coordinate des: " + coordinate);
+                    // document.getElementById('infor').style.display = 'block';
+					$("#info").html(result);
                 }
                 map.on('singleclick', function (evt) {
-                    //alert("coordinate: " + evt.coordinate);
+                    //alert("coordinate org: " + evt.coordinate);
                     //var myPoint = 'POINT(12,5)';
                     var lonlat = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
-                    var lon = lonlat[0];
+                    var lon = lonlat[0];   
                     var lat = lonlat[1];
                     var myPoint = 'POINT(' + lon + ' ' + lat + ')';
                     //alert("myPoint: " + myPoint);
                     //*
                     $.ajax({
                         type: "POST",
-                        url: "pgsqlAPI.php",
+                        url: "inforAPI.php",
                         //dataType: 'json',
-                        data: {functionname: 'getGeoCMRToAjax', paPoint: myPoint},
+                        //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
+                        data: {functionname: 'getInfoCMRToAjax', paPoint: myPoint},
                         success : function (result, status, erro) {
-                            highLightObj(result);
+                            displayObjInfo(result, evt.coordinate );
                         },
                         error: function (req, status, error) {
                             alert(req + " " + status + " " + error);
@@ -178,6 +189,8 @@
                     //*/
                 });
             };
+        //});
         </script>
     </body>
+    <script src="infor.js"></script>
 </html>
