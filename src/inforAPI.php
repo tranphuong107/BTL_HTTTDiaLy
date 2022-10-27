@@ -123,7 +123,6 @@
                 $resFin = $resFin.'<tr><td>Ca nhiễm: '.$item['canhiem'].'</td></tr>';
                 $resFin = $resFin.'<tr><td>Ca nhiễm mới: '.$item['canhiemmoi'].'</td></tr>';
                 $resFin = $resFin.'<tr><td>Ca tử vong: '.$item['catuvong'].'</td></tr>';
-
                 break;
             }
             $resFin = $resFin.'</table>';
