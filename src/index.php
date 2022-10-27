@@ -8,12 +8,12 @@
         <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css" />
         <script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
         
-        <link rel="stylesheet" href="http://localhost:8081/libs/openlayers/css/ol.css" type="text/css" />
-        <script src="http://localhost:8081/libs/openlayers/build/ol.js" type="text/javascript"></script>
+        <!-- <link rel="stylesheet" href="http://localhost:8081/libs/openlayers/css/ol.css" type="text/css" /> -->
+        <!-- <script src="http://localhost:8081/libs/openlayers/build/ol.js" type="text/javascript"></script> -->
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
         
-        <script src="http://localhost:8081/libs/jquery/jquery-3.4.1.min.js" type="text/javascript"></script>
+        <!-- <script src="http://localhost:8081/libs/jquery/jquery-3.4.1.min.js" type="text/javascript"></script> -->
         <style>
             /*
             .map, .righ-panel {
@@ -68,7 +68,7 @@
                 var layerCMR_adm1 = new ol.layer.Image({
                     source: new ol.source.ImageWMS({
                         ratio: 1,
-                        url: 'http://localhost:8080/geoserver/example/wms?',
+                        url: 'http://localhost:8080/geoserver/BTL/wms?',
                         params: {
                             'FORMAT': format,
                             'VERSION': '1.1.1',
