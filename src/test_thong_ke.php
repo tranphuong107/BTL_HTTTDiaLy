@@ -7,12 +7,14 @@
         <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css" />
         <script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
         
-        <!-- <link rel="stylesheet" href="http://localhost:8081/libs/openlayers/css/ol.css" type="text/css" /> -->
-        <!-- <script src="http://localhost:8081/libs/openlayers/build/ol.js" type="text/javascript"></script> -->
+        <link rel="stylesheet" href="http://localhost:8081/libs/openlayers/css/ol.css" type="text/css" />
+        <script src="http://localhost:8081/libs/openlayers/build/ol.js" type="text/javascript"></script>
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
+        
         <script src="http://localhost:8081/libs/jquery/jquery-3.4.1.min.js" type="text/javascript"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
         <style>
             /*
             .map, .righ-panel {
@@ -76,7 +78,7 @@
                     
                     <!-- <button>Button</button> -->
               
-        <?php include 'inforAPI.php' ?>
+        <?php include 'inforAPItest.php' ?>
         <script>
         //$("#document").ready(function () {
             var format = 'image/png';
@@ -85,8 +87,8 @@
             var minY = 8.30629730224609;
             var maxX = 109.505798339844;
             var maxY = 23.4677505493164;
-            var cenX = (minX + maxX) / 2;
-            var cenY = (minY + maxY) / 2;
+            var cenX = (minX + maxX) /2;
+            var cenY = (minY + maxY) /2;
             var mapLat = cenY;
             var mapLng = cenX;
             var mapDefaultZoom = 6;
@@ -99,7 +101,7 @@
                 var layerCMR_adm1 = new ol.layer.Image({
                     source: new ol.source.ImageWMS({
                         ratio: 1,
-                        url: 'http://localhost:8080/geoserver/BTL/wms?',
+                        url: 'http://localhost:8080/geoserver/example/wms?',
                         params: {
                             'FORMAT': format,
                             'VERSION': '1.1.1',
@@ -112,7 +114,7 @@
                 var  layerCovid = new ol.layer.Image({
                     source: new ol.source.ImageWMS({
                         ratio: 1,
-                        url: 'http://localhost:8080/geoserver/BTL/wms?',
+                        url: 'http://localhost:8080/geoserver/example/wms?',
                         params: {
                             'FORMAT': format,
                             'VERSION': '1.1.1',
@@ -151,34 +153,7 @@
                 });
                 map.addLayer(vectorLayer);
 
-                function createJsonObj(result) {                    
-                    var geojsonObject = '{'
-                            + '"type": "FeatureCollection",'
-                            + '"crs": {'
-                                + '"type": "name",'
-                                + '"properties": {'
-                                    + '"name": "EPSG:4326"'
-                                + '}'
-                            + '},'
-                            + '"features": [{'
-                                + '"type": "Feature",'
-                                + '"geometry": ' + result
-                            + '}]'
-                        + '}';
-                    return geojsonObject;
-                }
-                function drawGeoJsonObj(paObjJson) {
-                    var vectorSource = new ol.source.Vector({
-                        features: (new ol.format.GeoJSON()).readFeatures(paObjJson, {
-                            dataProjection: 'EPSG:4326',
-                            featureProjection: 'EPSG:3857'
-                        })
-                    });
-                    var vectorLayer = new ol.layer.Vector({
-                        source: vectorSource
-                    });
-                    map.addLayer(vectorLayer);
-                }
+        
                 function displayObjInfo(result, coordinate)
                 {
                     //alert("result: " + result);
@@ -223,7 +198,7 @@
                     //*
                     $.ajax({
                         type: "POST",
-                        url: "inforAPI.php",
+                        url: "inforAPItest.php",
                         //dataType: 'json',
                         //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
                         data: {functionname: 'getInfoCMRToAjax', paPoint: myPoint},
@@ -237,7 +212,7 @@
                     });
                     $.ajax({
                         type: "POST",
-                        url: "inforAPI.php",
+                        url: "inforAPItest.php",
                         //dataType: 'json',
                         data: {functionname: 'getGeoCMRToAjax', paPoint: myPoint},
                         success : function (result, status, erro) {
@@ -250,7 +225,90 @@
                     displayInfoCovid()
                     //*/
                 });
-      
+               
+                    // Thống kê các vùng, khi click vào tên trong list thống kê, hiển thị bản đồ ở đó
+                function displayGeoStatistic(result) {
+                    layerBG = new ol.layer.Tile({
+                        source: new ol.source.OSM({})
+                    });
+                        //*/
+                        var layerCMR_adm1 = new ol.layer.Image({
+                            source: new ol.source.ImageWMS({
+                                ratio: 1,
+                                url: 'http://localhost:8080/geoserver/example/wms?',
+                                params: {
+                                    'FORMAT': format,
+                                    'VERSION': '1.1.1',
+                                    STYLES: '',
+                                    LAYERS: 'gadm41_vnm_1',
+                                }
+                            })
+                        });
+                        //thêm dlieu covid
+                        var  layerCovid = new ol.layer.Image({
+                            source: new ol.source.ImageWMS({
+                                ratio: 1,
+                                url: 'http://localhost:8080/geoserver/example/wms?',
+                                params: {
+                                    'FORMAT': format,
+                                    'VERSION': '1.1.1',
+                                    STYLES: '',
+                                    LAYERS: 'dlieu_point',
+                                }
+                            })
+                        });
+                        var viewMap = new ol.View({
+                            center: ol.proj.fromLonLat([mapLng, mapLat]),
+                            zoom: mapDefaultZoom
+                            //projection: projection
+                        });
+                        map = new ol.Map({
+                            target: "map",
+                            layers: [layerBG, layerCMR_adm1, layerCovid],
+                            //layers: [layerCMR_adm1],
+                            view: viewMap
+                        });
+                        //map.getView().fit(bounds, map.getSize());
+                        
+                        var styles = {
+                            'MultiPolygon': new ol.style.Style({
+                                stroke: new ol.style.Stroke({
+                                    color: '#0892d0  ', 
+                                    width: 2
+                                })
+                            })
+                        };
+                        var styleFunction = function (feature) {
+                            return styles[feature.getGeometry().getType()];
+                        };
+                        var vectorLayer = new ol.layer.Vector({
+                            //source: vectorSource,
+                            style: styleFunction
+                        });
+                        map.addLayer(vectorLayer);
+
+                }
+                }
+                let clickName = document.querySelector('#info');
+                clickName.onclick = function (){ 
+                    var lon = 105.142431745547000;
+                    var lat = 10.572287031767900;
+                    var myPoint = 'POINT(' + lon + ' ' + lat + ')';
+                    $.ajax({
+                        type: "POST",
+                        url: "inforAPItest.php",
+                        //dataType: 'json',
+                        //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
+                        data: {functionname: 'getGeoStatistic', paPoint: myPoint},
+                        success : function (result, status, erro) {
+                            displayGeoStatistic(result);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
+
+                        }
+                    });     
+                }
             };
         //});
 

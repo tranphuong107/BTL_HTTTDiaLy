@@ -2,7 +2,7 @@
     if(isset($_POST['functionname'])) 
     {
         $paPDO = initDB();
-        $paSRID = '0';
+        $paSRID = '4326';
         $paPoint = $_POST['paPoint'];
         $functionname = $_POST['functionname'];
         
@@ -122,7 +122,6 @@
             $resFin = $resFin.'<div class ="content-info">';
             // Lặp kết quả
             foreach ($result as $item){
-            
                 $resFin = $resFin.'<p>Tỉnh: '.$item['name_1'].'</p>';
                 $resFin = $resFin.'<p>Ca nhiễm: '.$item['canhiem'].'</p>';
                 $resFin = $resFin.'<p>Ca nhiễm mới: '.$item['canhiemmoi'].'</p>';
@@ -145,4 +144,23 @@
         }
             return $resFin;
     }
+
+
+    // API cho thống kê
+    function getGeoStatistic($paPDO)  {
+        $mySQLStr = "SELECT x, y  from \"gadm41_vnm_1\" 
+        where  name_1 = N\"An Giang\" ";
+        echo $mySQLStr;
+        // lấy x, y để biểu diễn bản đồ được click, hai điểm này sẽ đc lấy làm center của map để hiển thị bản đồ
+        $result = query($paPDO, $mySQLStr);
+
+        if ($result != null)
+        {
+            $ketqua = array($item[x],$item[y]);
+            return $ketqua;
+        }
+        else
+            return "null 99";
+    }
+    
 ?>
