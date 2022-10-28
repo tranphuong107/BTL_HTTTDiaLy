@@ -2,7 +2,7 @@
     if(isset($_POST['functionname'])) 
     {
         $paPDO = initDB();
-        $paSRID = '4326';
+        $paSRID = '0';
         $paPoint = $_POST['paPoint'];
         $functionname = $_POST['functionname'];
         
@@ -123,7 +123,6 @@
                 $resFin = $resFin.'<tr><td>Ca nhiễm: '.$item['canhiem'].'</td></tr>';
                 $resFin = $resFin.'<tr><td>Ca nhiễm mới: '.$item['canhiemmoi'].'</td></tr>';
                 $resFin = $resFin.'<tr><td>Ca tử vong: '.$item['catuvong'].'</td></tr>';
-
                 break;
             }
             $resFin = $resFin.'</table>';
