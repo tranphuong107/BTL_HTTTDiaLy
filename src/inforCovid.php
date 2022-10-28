@@ -39,7 +39,7 @@
                 background-color: #f2f3f4;
                 min-height: 250px;
                 border-radius: 5px;
-                /* display: none; */
+                display: none;
             }
             .header-infor{
                 text-align: center;
