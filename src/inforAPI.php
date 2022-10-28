@@ -2,7 +2,7 @@
     if(isset($_POST['functionname'])) 
     {
         $paPDO = initDB();
-        $paSRID = '4326';
+        $paSRID = '0';
         $paPoint = $_POST['paPoint'];
         $functionname = $_POST['functionname'];
         
@@ -122,6 +122,7 @@
             $resFin = $resFin.'<div class ="content-info">';
             // Lặp kết quả
             foreach ($result as $item){
+            
                 $resFin = $resFin.'<p>Tỉnh: '.$item['name_1'].'</p>';
                 $resFin = $resFin.'<p>Ca nhiễm: '.$item['canhiem'].'</p>';
                 $resFin = $resFin.'<p>Ca nhiễm mới: '.$item['canhiemmoi'].'</p>';
