@@ -2,19 +2,19 @@
     if(isset($_POST['functionname'])) 
     {
         $paPDO = initDB();
-        $paSRID = '4326';
+        $paSRID = '4326'; 
         $paPoint = $_POST['paPoint'];
         $functionname = $_POST['functionname'];
         
         $aResult = "null";
-        if ($functionname == 'getGeoCMRToAjax')
-            $aResult = getGeoCMRToAjax($paPDO, $paSRID, $paPoint);
+        if ($functionname == 'getGeoCMRToAjax'){
+            $caNhiem = $_POST['caNhiem'];
+            $aResult = getGeoCMRToAjax($paPDO,$caNhiem);
+        }
         else if ($functionname == 'getInfoCMRToAjax')
             $aResult = getInfoCMRToAjax($paPDO, $paSRID, $paPoint);
-        else if ($functionname == 'getGeoStatistic')
-            $aResult = getGeoStatistic($paPDO, $paSRID);
-        else if ($functionname == 'getGeoThongkeToAjax')
-            $aResult = getGeoThongkeToAjax($paPDO, $paSRID);
+        else if ($functionname == 'getGeoFillColorToAjax')
+            $aResult = getGeoFillColorToAjax($paPDO, $paSRID);
         echo $aResult;
     
         closeDB($paPDO);
@@ -78,16 +78,19 @@
         else
             return "null";
     }
-    function getGeoCMRToAjax($paPDO,$paSRID,$paPoint)
+    // Hàm fill màu theo canhiem
+    function getGeoCMRToAjax($paPDO,$caNhiem)
     {
-        // echo $paPoint;
+        //echo $paPoint;
         //echo "<br>";
-        $paPoint = str_replace(',', ' ', $paPoint);
+        // $paPoint = str_replace(',', ' ', $paPoint);
         //echo $paPoint;
         //echo "<br>";
         //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where ST_Within('SRID=4326;POINT(12 5)'::geometry,geom)";
-        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
-        echo $mySQLStr;
+        // $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where varname_1 = 'Ha Noi'";
+        $mySQLStr = "SELECT ST_AsGeoJson(gadm41_vnm_1.geom) as geo from dlieu_point, gadm41_vnm_1 
+         where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and canhiem <= ".$caNhiem." ";
+        // echo $mySQLStr;
         //echo "<br><br>";
         $result = query($paPDO, $mySQLStr);
         
@@ -101,7 +104,7 @@
         else
             return "null";
     }
-    // getGeoCMRToAjax(initDB(),'4326','POINT(106.630784879871996 10.757754740205399)');
+    // getGeoCMRToAjax(initDB());
     function getInfoCMRToAjax($paPDO,$paSRID,$paPoint)
     {
         //echo $paPoint;
@@ -126,6 +129,7 @@
             $resFin = $resFin.'<div class ="content-info">';
             // Lặp kết quả
             foreach ($result as $item){
+            
                 $resFin = $resFin.'<p>Tỉnh: '.$item['name_1'].'</p>';
                 $resFin = $resFin.'<p>Ca nhiễm: '.$item['canhiem'].'</p>';
                 $resFin = $resFin.'<p>Ca nhiễm mới: '.$item['canhiemmoi'].'</p>';
@@ -149,48 +153,42 @@
             return $resFin;
     }
 
-
-    // API cho thống kê
-    function getGeoStatistic($paPDO)  {
-        $mySQLStr = "SELECT x, y, geom  from dlieu_point  where  varname_1 = 'Ho Chi Minh' ";
-        // echo $mySQLStr;
-        // lấy x, y để biểu diễn bản đồ được click, hai điểm này sẽ đc lấy làm center của map để hiển thị bản đồ
-        $result = query($paPDO, $mySQLStr);
-
-        if ($result != null)
-        {
-            foreach ($result as $item){
-                $ketqua = array($item['x'],$item['y'],$item['geom']);
-            }
-            return json_encode($ketqua);
-        }
-        else
-            return "null 99";
-    }
-
-    function getGeoThongkeToAjax($paPDO,$paSRID)
-    {
-        //echo $paPoint;
-        //echo "<br>";
-        // $paPoint = str_replace(',', ' ', $paPoint);
-        //echo $paPoint;
-        //echo "<br>";
-        //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where ST_Within('SRID=4326;POINT(12 5)'::geometry,geom)";
-        $mySQLStr = "SELECT ST_AsGeoJson(gadm41_vnm_1.geom) as geo from dlieu_point, gadm41_vnm_1 
-        where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and dlieu_point.varname_1 = 'Ho Chi Minh'";
-        // echo $mySQLStr;
-        //echo "<br><br>";
-        $result = query($paPDO, $mySQLStr);
+    // function getGeoFillColorToAjax($paPDO,$paSRID)
+    // {
+    //     //echo $paPoint;
+    //     //echo "<br>";
+    //     // $paPoint = str_replace(',', ' ', $paPoint);
+    //     //echo $paPoint;
+    //     //echo "<br>";
+    //     //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where ST_Within('SRID=4326;POINT(12 5)'::geometry,geom)";
+    //     $mySQLStr = "SELECT (gadm41_vnm_1.geom) as geo from dlieu_point, gadm41_vnm_1 
+    //     where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and canhiem <= 50 ";
+    //     // echo $mySQLStr;
+    //     //echo "<br><br>";
         
-        if ($result != null)
-        {
-            // Lặp kết quả
-            foreach ($result as $item){
-                return $item['geo'];
-            }
-        }
-        else
-            return "null";
-    }
-    // getGeoThongkeToAjax(initDB(),'43256');
+    //     $result = query($paPDO, $mySQLStr);
+    //     if ($result != null)
+    //     {
+    //         // Lặp kết quả
+    //         echo json_encode($result);
+    //         foreach ($result as $item){
+    //             echo $item['geo'];
+
+    //             // $mygeo = "SELECT ST_AsGeoJson(".$item['geo']."::geometry)";
+    //             // $myresult = query($paPDO, $mygeo);
+    //             // echo $myresult;
+    //             // if ($myresult != null)
+    //             // {
+    //             //     // Lặp kết quả
+    //             //     // echo json_encode($result);
+    //             //     foreach ($myresult as $myitem){
+    //             //         echo json_encode($myitem);
+    //             //     }
+    //             // }
+    //         }
+    //     }
+    //     else
+    //         return "null";
+    // }
+    // getGeoFillColorToAjax(initDB(),'4326');
 ?>
