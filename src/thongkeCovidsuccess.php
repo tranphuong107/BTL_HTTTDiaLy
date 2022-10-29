@@ -79,7 +79,7 @@
                     
                     <!-- <button>Button</button> -->
               
-        <?php include 'inforAPItest.php' ?>
+        <?php include 'APIthongke.php' ?>
         <script>
         //$("#document").ready(function () {
             var format = 'image/png';
@@ -228,7 +228,7 @@
                     //*
                     $.ajax({
                         type: "POST",
-                        url: "inforAPItest.php",
+                        url: "APIthongke.php",
                         //dataType: 'json',
                         //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
                         data: {functionname: 'getInfoCMRToAjax', paPoint: myPoint},
@@ -242,7 +242,7 @@
                     });
                     $.ajax({
                         type: "POST",
-                        url: "inforAPItest.php",
+                        url: "APIthongke.php",
                         //dataType: 'json',
                         data: {functionname: 'getGeoCMRToAjax', paPoint: myPoint},
                         success : function (result, status, erro) {
@@ -260,17 +260,6 @@
                     var resultjs = JSON.parse(result)
                     var x = +resultjs[0];   
                     var y = +resultjs[1];
-                    // alignMap() {
-                    //     MapValues.view.on('change:center', function () {
-                    //     MapValues.mapCenter = transform(MapValues.view.getCenter(), 'EPSG:3857', 'EPSG:4326');
-                    //     MapValues.googleLat = MapValues.mapCenter[1];
-                    //     MapValues.googleLng = MapValues.mapCenter[0];
-                    //     });
-                    //     MapValues.view.on('change:resolution', function () {
-                    //     MapValues.googleZoom = MapValues.view.getZoom();
-                    //     });
-                    // }
-                    // alignMap()
                         var viewMap = new ol.View({
                             center: ol.proj.fromLonLat([x, y]),
                             zoom: 8
@@ -286,14 +275,13 @@
                 
                 let clickName = document.querySelector('#info');
                 clickName.onclick = function (){ 
-                    map = ''
                     var lon = 105.142431745547000;
                     var lat = 10.572287031767900;
                     var myPoint = 'POINT(' + lon + ' ' + lat + ')';
                    
                     $.ajax({
                         type: "POST",
-                        url: "inforAPItest.php",
+                        url: "APIthongke.php",
                         //dataType: 'json',
                         //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
                         data: {functionname: 'getGeoStatistic', paPoint: myPoint},
@@ -304,9 +292,19 @@
                             alert(req + " " + status + " " + error);
 
                         }
+                    }); 
+                    $.ajax({
+                        type: "POST",
+                        url: "APIthongke.php",
+                        //dataType: 'json',
+                        data: {functionname: 'getGeoThongkeToAjax', paPoint: myPoint},
+                        success : function (result1, status, erro) {
+                            highLightObj(result1);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
                     });
-
-                   
 
                 }
                 //Kết thúc Thống kê các vùng, khi click vào tên trong list thống kê, hiển thị bản đồ ở đó

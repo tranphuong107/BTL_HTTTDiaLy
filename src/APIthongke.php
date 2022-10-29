@@ -2,13 +2,13 @@
     if(isset($_POST['functionname'])) 
     {
         $paPDO = initDB();
-        $paSRID = '4326';
+        $paSRID = '4326'; 
         $paPoint = $_POST['paPoint'];
         $functionname = $_POST['functionname'];
         
         $aResult = "null";
         if ($functionname == 'getGeoCMRToAjax')
-            $aResult = getGeoCMRToAjax($paPDO, $paSRID, $paPoint);
+        $aResult = getGeoCMRToAjax($paPDO, $paSRID, $paPoint);
         else if ($functionname == 'getInfoCMRToAjax')
             $aResult = getInfoCMRToAjax($paPDO, $paSRID, $paPoint);
         else if ($functionname == 'getGeoStatistic')
@@ -80,14 +80,14 @@
     }
     function getGeoCMRToAjax($paPDO,$paSRID,$paPoint)
     {
-        // echo $paPoint;
+        //echo $paPoint;
         //echo "<br>";
         $paPoint = str_replace(',', ' ', $paPoint);
         //echo $paPoint;
         //echo "<br>";
         //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where ST_Within('SRID=4326;POINT(12 5)'::geometry,geom)";
         $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
-        echo $mySQLStr;
+        //echo $mySQLStr;
         //echo "<br><br>";
         $result = query($paPDO, $mySQLStr);
         
@@ -101,7 +101,6 @@
         else
             return "null";
     }
-    // getGeoCMRToAjax(initDB(),'4326','POINT(106.630784879871996 10.757754740205399)');
     function getInfoCMRToAjax($paPDO,$paSRID,$paPoint)
     {
         //echo $paPoint;
@@ -126,6 +125,7 @@
             $resFin = $resFin.'<div class ="content-info">';
             // Lặp kết quả
             foreach ($result as $item){
+            
                 $resFin = $resFin.'<p>Tỉnh: '.$item['name_1'].'</p>';
                 $resFin = $resFin.'<p>Ca nhiễm: '.$item['canhiem'].'</p>';
                 $resFin = $resFin.'<p>Ca nhiễm mới: '.$item['canhiemmoi'].'</p>';
@@ -192,5 +192,4 @@
         else
             return "null";
     }
-    // getGeoThongkeToAjax(initDB(),'43256');
 ?>
