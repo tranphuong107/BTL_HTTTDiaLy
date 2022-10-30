@@ -56,19 +56,6 @@
                                 <span class="list-span">Vùng nguy cơ cao</span>
                                 
                             </li>
-                            <div class ="content-list-item list-item">
-                                        <ul>
-                                        <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li>
-                                        </ul>
-                            </div>
                             <li class ="list-item yellow">
                                 <div class ="dot dot_yellow"></div>
                                 <span class="list-span">Vùng nguy cơ trung bình</span>
