@@ -2,7 +2,7 @@
     if(isset($_POST['functionname'])) 
     {
         $paPDO = initDB();
-        $paSRID = '4326'; 
+        $paSRID = '0'; 
         $paPoint = $_POST['paPoint'];
         $functionname = $_POST['functionname'];
         
@@ -75,19 +75,18 @@
         else
             return "null";
     }
-    function getGeoCMRToAjax($paPDO,$paSRID,$paPoint)
+    function getGeoCMRToAjax($paPDO)
     {
         //echo $paPoint;
         //echo "<br>";
-        $paPoint = str_replace(',', ' ', $paPoint);
+        // $paPoint = str_replace(',', ' ', $paPoint);
         //echo $paPoint;
         //echo "<br>";
         //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where ST_Within('SRID=4326;POINT(12 5)'::geometry,geom)";
-        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
-        //echo $mySQLStr;
+        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where varname_1 = 'Ha Noi'";
+        echo $mySQLStr;
         //echo "<br><br>";
         $result = query($paPDO, $mySQLStr);
-        
         if ($result != null)
         {
             // Lặp kết quả
@@ -98,6 +97,7 @@
         else
             return "null";
     }
+    getGeoCMRToAjax(initDB());
     function getInfoCMRToAjax($paPDO,$paSRID,$paPoint)
     {
         //echo $paPoint;
