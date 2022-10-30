@@ -81,30 +81,25 @@
     // Hàm fill màu theo canhiem
     function getGeoCMRToAjax($paPDO,$caNhiem)
     {
-        //echo $paPoint;
-        //echo "<br>";
-        // $paPoint = str_replace(',', ' ', $paPoint);
-        //echo $paPoint;
-        //echo "<br>";
-        //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where ST_Within('SRID=4326;POINT(12 5)'::geometry,geom)";
-        // $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where varname_1 = 'Ha Noi'";
+        //  chỉnh sửa lại hàm thành ba biến truyền vào, lấy hai biến còn lại để truy vấn kiểu như này
+        // canhiem >= 0 (biến 1) và canhiem < 50 (biến hai)
         $mySQLStr = "SELECT ST_AsGeoJson(gadm41_vnm_1.geom) as geo from dlieu_point, gadm41_vnm_1 
          where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and canhiem <= ".$caNhiem." ";
-        // echo $mySQLStr;
-        //echo "<br><br>";
         $result = query($paPDO, $mySQLStr);
-        
+        // echo json_encode($result) ;
+        $ketqua = array();
         if ($result != null)
         {
             // Lặp kết quả
             foreach ($result as $item){
-                return $item['geo'];
+                array_push($ketqua,$item['geo']);
             }
+            return json_encode($ketqua);
         }
         else
             return "null";
     }
-    // getGeoCMRToAjax(initDB());
+    getGeoCMRToAjax(initDB(),50);
     function getInfoCMRToAjax($paPDO,$paSRID,$paPoint)
     {
         //echo $paPoint;

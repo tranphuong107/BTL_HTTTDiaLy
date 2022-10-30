@@ -109,10 +109,10 @@
                         fill: new ol.style.Fill({
                             color: 'green'
                         }),
-                        // stroke: new ol.style.Stroke({
-                        //     color: 'yellow', 
-                        //     width: 2
-                        // })
+                        stroke: new ol.style.Stroke({
+                            color: 'yellow', 
+                            width: 1
+                        })
                     })
 
                 };
@@ -151,7 +151,8 @@
                         })
                     });
                     var vectorLayer = new ol.layer.Vector({
-                        source: vectorSource
+                        // source: vectorSource,
+                        style: styleFunction,
                     });
 
                     map.addLayer(vectorLayer);
@@ -163,19 +164,25 @@
                             featureProjection: 'EPSG:3857'
                         })
                     });
-					vectorLayer.setSource(vectorSource);
-                    
-                    // var vectorLayer = new ol.layer.Vector({
-                    //     source: vectorSource
-                    // });
-                    // map.addLayer(vectorLayer);
-                    console.log(paObjJson);
+					// vectorLayer.setSource(vectorSource);
+
+                    // style lại geo 
+                    var vectorLayer = new ol.layer.Vector({
+                        style: styleFunction,
+                        source: vectorSource
+                    });
+                    map.addLayer(vectorLayer);
+                    // console.log(paObjJson);
                 }
                 function highLightObj(result) {
-                    console.log(result);
-                    var strObjJson = createJsonObj(result);
-                    var objJson = JSON.parse(strObjJson);
-                    highLightGeoJsonObj(objJson);
+                    // console.log(typeof result);
+                    var resultjs = JSON.parse(result)
+                    //  Duyệt lấy ra từng geo và tô màu 
+                    for(let geo of resultjs){
+                        var strObjJson = createJsonObj(geo);
+                        var objJson = JSON.parse(strObjJson);
+                        highLightGeoJsonObj(objJson);
+                    }
                 }
                 function displayObjInfo(result, coordinate)
                 {
@@ -191,6 +198,9 @@
                     var lon = 105.142431745547000;
                     var lat = 10.572287031767900;
                     var myPoint = 'POINT(106.630784879871996 10.757754740205399)';
+                    // soca là ca nhiễm t test, b tạo 1 mảng ở đây và truyền hai biến giới hạn ca nhiem  để truy vấn
+                    // Thêm hai biến ở dòng 210, tương tự như t truyền soCa nhé,
+                    // hoặc copy chạy lại nhiều lần đoạn bên dưới cũng đc , vậy cho dễ
                     var soCa = 50;
                     //alert("myPoint: " + myPoint);
                     //*
