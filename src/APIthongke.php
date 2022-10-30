@@ -118,31 +118,21 @@
         
         if ($result != null)
         {
-            $resFin = '<div class ="header-infor">';
-            $resFin = $resFin.'<p>Thông tin vùng</p>';
-            // $resFin = $resFin.'<i class="fa-solid fa-xmark"></i>';
-            $resFin = $resFin.'</div>';
-            $resFin = $resFin.'<div class ="content-info">';
             // Lặp kết quả
             foreach ($result as $item){
-            
+                $resFin = '<div class ="infor-success">';
                 $resFin = $resFin.'<p>Tỉnh: '.$item['name_1'].'</p>';
                 $resFin = $resFin.'<p>Ca nhiễm: '.$item['canhiem'].'</p>';
                 $resFin = $resFin.'<p>Ca nhiễm mới: '.$item['canhiemmoi'].'</p>';
                 $resFin = $resFin.'<p>Ca tử vong: '.$item['catuvong'].'</p>';
+                $resFin = $resFin.'</div>';
 
                 break;
             }
-            $resFin = $resFin.'</div>';
-            
             return $resFin;
         }
         else{
-            $resFin = '<div class ="header-infor">';
-            $resFin = $resFin.'<p>Thông tin vùng</p>';
-            // $resFin = $resFin.'<i class="fa-solid fa-xmark"></i>';
-            $resFin = $resFin.'</div>';
-            $resFin = $resFin.'<div class ="infor-fail">';
+            $resFin = '<div class ="infor-fail">';
             $resFin = $resFin.'<p>Vui lòng chọn vùng đất liền Việt Nam !</p>';
             $resFin = $resFin.'</div>';
         }
