@@ -235,22 +235,451 @@
 
                         }
                     });
-                    $.ajax({
-                        type: "POST",
-                        url: "inforAPI.php",
-                        //dataType: 'json',
-                        data: {functionname: 'getGeoCMRToAjax', paPoint: myPoint},
-                        success : function (result, status, erro) {
-                            highLightObj(result);
-                        },
-                        error: function (req, status, error) {
-                            alert(req + " " + status + " " + error);
-                        }
-                    });
+                    // $.ajax({
+                    //     type: "POST",
+                    //     url: "inforAPI.php",
+                    //     //dataType: 'json',
+                    //     data: {functionname: 'getGeoCMRToAjax', paPoint: myPoint},
+                    //     success : function (result, status, erro) {
+                    //         highLightObj(result);
+                    //     },
+                    //     error: function (req, status, error) {
+                    //         alert(req + " " + status + " " + error);
+                    //     }
+                    // });
                     displayInfoCovid()
                     //*/
                 });
       
+                var style1 = {
+                    'MultiPolygon': new ol.style.Style({
+                        fill: new ol.style.Fill({
+                            color: 'rgba(80,173,49,0.6)'
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: 'rgba(80,173,49,0.9)', 
+                            width: 1
+                        })
+                    })
+
+                };
+                var styleFunction1 = function (
+                    feature) {
+                    return style1[feature.getGeometry().getType()];
+                };
+                var vectorLayer = new ol.layer.Vector({
+                    //source: vectorSource,
+                    style: styleFunction1
+                });
+                map.addLayer(vectorLayer);
+
+                function createJsonObj(result1) {                    
+                    var geojsonObject = '{'
+                            + '"type": "FeatureCollection",'
+                            + '"crs": {'
+                                + '"type": "name",'
+                                + '"properties": {'
+                                    + '"name": "EPSG:4326"'
+                                + '}'
+                            + '},'
+                            + '"features": [{'
+                                + '"type": "Feature",'
+                                + '"geometry": ' + result1
+                            + '}]'
+                        + '}';
+                    return geojsonObject;
+                }
+              
+                function drawGeoJsonObj(paObjJson) {
+                    var vectorSource = new ol.source.Vector({
+                        features: (new ol.format.GeoJSON()).readFeatures(paObjJson, {
+                            dataProjection: 'EPSG:4326',
+                            featureProjection: 'EPSG:3857'
+                        })
+                    });
+                    var vectorLayer = new ol.layer.Vector({
+                        // source: vectorSource,
+                        style: styleFunction1,
+                    });
+
+                    map.addLayer(vectorLayer);
+                }
+                function highLightGeoJsonObj(paObjJson) {
+                    var vectorSource = new ol.source.Vector({
+                        features: (new ol.format.GeoJSON()).readFeatures(paObjJson, {
+                            dataProjection: 'EPSG:4326',
+                            featureProjection: 'EPSG:3857'
+                        })
+                    });
+					// vectorLayer.setSource(vectorSource);
+
+                    // style lại geo 
+                    var vectorLayer = new ol.layer.Vector({
+                        style: styleFunction1,
+                        source: vectorSource
+                    });
+                    map.addLayer(vectorLayer);
+                    // console.log(paObjJson);
+                }
+                function highLightObj1(result) {
+                    // console.log(typeof result);
+                    var resultjs = JSON.parse(result)
+                    //  Duyệt lấy ra từng geo và tô màu 
+                    for(let geo of resultjs){
+                        var strObjJson = createJsonObj(geo);
+                        var objJson = JSON.parse(strObjJson);
+                        highLightGeoJsonObj(objJson);
+                    }
+                }
+                function displayObjInfo(result, coordinate)
+                {
+                    //alert("result: " + result);
+                    //alert("coordinate des: " + coordinate);
+                    
+					$("#info").html(result);
+                }
+                // highLightObj(getGeoCMRToAjax(initDB()));
+                function Test1() {
+                    //alert("coordinate: " + evt.coordinate);
+                    // var myPoint = 'POINT(12,5)';
+                    var lon = 105.142431745547000;
+                    var lat = 10.572287031767900;
+                    var myPoint = 'POINT(106.630784879871996 10.757754740205399)';
+                    // soca là ca nhiễm t test, b tạo 1 mảng ở đây và truyền hai biến giới hạn ca nhiem  để truy vấn
+                    // Thêm hai biến ở dòng 210, tương tự như t truyền soCa nhé,
+                    // hoặc copy chạy lại nhiều lần đoạn bên dưới cũng đc , vậy cho dễ
+                    var soCa = 50;
+                    //alert("myPoint: " + myPoint);
+                    //*
+                    $.ajax({
+                        type: "POST",
+                        url: "myAPI.php",
+                        //dataType: 'json',
+                        data: {functionname: 'getGeoCMRToAjax1', paPoint: myPoint, caNhiem: soCa},
+                        success : function (result, status, erro) {
+                            highLightObj1(result);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
+                    
+                    });
+                };
+                Test1();
+
+                var style2 = {
+                    'MultiPolygon': new ol.style.Style({
+                        fill: new ol.style.Fill({
+                            color: 'rgba(243,242,18,0.6)'
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: 'rgba(243,242,18,0.9)', 
+                            width: 1
+                        })
+                    })
+
+                };
+                var styleFunction2 = function (
+                    feature) {
+                    return style2[feature.getGeometry().getType()];
+                };
+                var vectorLayer = new ol.layer.Vector({
+                    //source: vectorSource,
+                    style: styleFunction2
+                });
+                map.addLayer(vectorLayer);
+
+                             
+                function drawGeoJsonObj(paObjJson) {
+                    var vectorSource = new ol.source.Vector({
+                        features: (new ol.format.GeoJSON()).readFeatures(paObjJson, {
+                            dataProjection: 'EPSG:4326',
+                            featureProjection: 'EPSG:3857'
+                        })
+                    });
+                    var vectorLayer = new ol.layer.Vector({
+                        // source: vectorSource,
+                        style: styleFunction2,
+                    });
+
+                    map.addLayer(vectorLayer);
+                }
+                function highLightGeoJsonObj2(paObjJson) {
+                    var vectorSource = new ol.source.Vector({
+                        features: (new ol.format.GeoJSON()).readFeatures(paObjJson, {
+                            dataProjection: 'EPSG:4326',
+                            featureProjection: 'EPSG:3857'
+                        })
+                    });
+					// vectorLayer.setSource(vectorSource);
+
+                    // style lại geo 
+                    var vectorLayer = new ol.layer.Vector({
+                        style: styleFunction2,
+                        source: vectorSource
+                    });
+                    map.addLayer(vectorLayer);
+                    // console.log(paObjJson);
+                }
+                function highLightObj2(result) {
+                    // console.log(typeof result);
+                    var resultjs = JSON.parse(result)
+                    //  Duyệt lấy ra từng geo và tô màu 
+                    for(let geo of resultjs){
+                        var strObjJson = createJsonObj(geo);
+                        var objJson = JSON.parse(strObjJson);
+                        highLightGeoJsonObj2(objJson);
+                    }
+                }
+                
+                // highLightObj(getGeoCMRToAjax(initDB()));
+                function Test2() {
+                    //alert("coordinate: " + evt.coordinate);
+                    // var myPoint = 'POINT(12,5)';
+                    var lon = 105.142431745547000;
+                    var lat = 10.572287031767900;
+                    var myPoint = 'POINT(106.630784879871996 10.757754740205399)';
+                    // soca là ca nhiễm t test, b tạo 1 mảng ở đây và truyền hai biến giới hạn ca nhiem  để truy vấn
+                    // Thêm hai biến ở dòng 210, tương tự như t truyền soCa nhé,
+                    // hoặc copy chạy lại nhiều lần đoạn bên dưới cũng đc , vậy cho dễ
+                    var soCa = 50;
+                    //alert("myPoint: " + myPoint);
+                    //*
+                    $.ajax({
+                        type: "POST",
+                        url: "myAPI.php",
+                        //dataType: 'json',
+                        data: {functionname: 'getGeoCMRToAjax2', paPoint: myPoint, caNhiem: soCa},
+                        success : function (result, status, erro) {
+                            highLightObj2(result);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
+                    
+                    });
+                };
+                Test2();
+
+                var style3 = {
+                    'MultiPolygon': new ol.style.Style({
+                        fill: new ol.style.Fill({
+                            color: 'rgba(243,134,18,0.6)'
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: 'rgba(243,134,18,0.9)', 
+                            width: 1
+                        })
+                    })
+
+                };
+                var styleFunction3 = function (
+                    feature) {
+                    return style3[feature.getGeometry().getType()];
+                };
+                var vectorLayer = new ol.layer.Vector({
+                    //source: vectorSource,
+                    style: styleFunction3
+                });
+                map.addLayer(vectorLayer);
+
+                function createJsonObj3(result1) {                    
+                    var geojsonObject = '{'
+                            + '"type": "FeatureCollection",'
+                            + '"crs": {'
+                                + '"type": "name",'
+                                + '"properties": {'
+                                    + '"name": "EPSG:4326"'
+                                + '}'
+                            + '},'
+                            + '"features": [{'
+                                + '"type": "Feature",'
+                                + '"geometry": ' + result1
+                            + '}]'
+                        + '}';
+                    return geojsonObject;
+                }
+              
+                function drawGeoJsonObj3(paObjJson) {
+                    var vectorSource = new ol.source.Vector({
+                        features: (new ol.format.GeoJSON()).readFeatures(paObjJson, {
+                            dataProjection: 'EPSG:4326',
+                            featureProjection: 'EPSG:3857'
+                        })
+                    });
+                    var vectorLayer = new ol.layer.Vector({
+                        // source: vectorSource,
+                        style: styleFunction3,
+                    });
+
+                    map.addLayer(vectorLayer);
+                }
+                function highLightGeoJsonObj3(paObjJson) {
+                    var vectorSource = new ol.source.Vector({
+                        features: (new ol.format.GeoJSON()).readFeatures(paObjJson, {
+                            dataProjection: 'EPSG:4326',
+                            featureProjection: 'EPSG:3857'
+                        })
+                    });
+					// vectorLayer.setSource(vectorSource);
+
+                    // style lại geo 
+                    var vectorLayer = new ol.layer.Vector({
+                        style: styleFunction3,
+                        source: vectorSource
+                    });
+                    map.addLayer(vectorLayer);
+                    // console.log(paObjJson);
+                }
+                function highLightObj3(result) {
+                    // console.log(typeof result);
+                    var resultjs = JSON.parse(result)
+                    //  Duyệt lấy ra từng geo và tô màu 
+                    for(let geo of resultjs){
+                        var strObjJson = createJsonObj(geo);
+                        var objJson = JSON.parse(strObjJson);
+                        highLightGeoJsonObj3(objJson);
+                    }
+                }
+                
+                // highLightObj(getGeoCMRToAjax(initDB()));
+                function Test3() {
+                    //alert("coordinate: " + evt.coordinate);
+                    // var myPoint = 'POINT(12,5)';
+                    var lon = 105.142431745547000;
+                    var lat = 10.572287031767900;
+                    var myPoint = 'POINT(106.630784879871996 10.757754740205399)';
+                    // soca là ca nhiễm t test, b tạo 1 mảng ở đây và truyền hai biến giới hạn ca nhiem  để truy vấn
+                    // Thêm hai biến ở dòng 210, tương tự như t truyền soCa nhé,
+                    // hoặc copy chạy lại nhiều lần đoạn bên dưới cũng đc , vậy cho dễ
+                    var soCa = 50;
+                    //alert("myPoint: " + myPoint);
+                    //*
+                    $.ajax({
+                        type: "POST",
+                        url: "myAPI.php",
+                        //dataType: 'json',
+                        data: {functionname: 'getGeoCMRToAjax3', paPoint: myPoint, caNhiem: soCa},
+                        success : function (result, status, erro) {
+                            highLightObj3(result);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
+                    
+                    });
+                };
+                Test3();
+
+                var style4 = {
+                    'MultiPolygon': new ol.style.Style({
+                        fill: new ol.style.Fill({
+                            color: 'rgba(255,46,46,0.6)'
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: 'rgba(255,46,46,0.9)', 
+                            width: 1
+                        })
+                    })
+
+                };
+                var styleFunction4 = function (
+                    feature) {
+                    return style4[feature.getGeometry().getType()];
+                };
+                var vectorLayer = new ol.layer.Vector({
+                    //source: vectorSource,
+                    style: styleFunction4
+                });
+                map.addLayer(vectorLayer);
+
+                function createJsonObj4(result1) {                    
+                    var geojsonObject = '{'
+                            + '"type": "FeatureCollection",'
+                            + '"crs": {'
+                                + '"type": "name",'
+                                + '"properties": {'
+                                    + '"name": "EPSG:4326"'
+                                + '}'
+                            + '},'
+                            + '"features": [{'
+                                + '"type": "Feature",'
+                                + '"geometry": ' + result1
+                            + '}]'
+                        + '}';
+                    return geojsonObject;
+                }
+              
+                function drawGeoJsonObj4(paObjJson) {
+                    var vectorSource = new ol.source.Vector({
+                        features: (new ol.format.GeoJSON()).readFeatures(paObjJson, {
+                            dataProjection: 'EPSG:4326',
+                            featureProjection: 'EPSG:3857'
+                        })
+                    });
+                    var vectorLayer = new ol.layer.Vector({
+                        // source: vectorSource,
+                        style: styleFunction4,
+                    });
+
+                    map.addLayer(vectorLayer);
+                }
+                function highLightGeoJsonObj4(paObjJson) {
+                    var vectorSource = new ol.source.Vector({
+                        features: (new ol.format.GeoJSON()).readFeatures(paObjJson, {
+                            dataProjection: 'EPSG:4326',
+                            featureProjection: 'EPSG:3857'
+                        })
+                    });
+					// vectorLayer.setSource(vectorSource);
+
+                    // style lại geo 
+                    var vectorLayer = new ol.layer.Vector({
+                        style: styleFunction4,
+                        source: vectorSource
+                    });
+                    map.addLayer(vectorLayer);
+                    // console.log(paObjJson);
+                }
+                function highLightObj4(result) {
+                    // console.log(typeof result);
+                    var resultjs = JSON.parse(result)
+                    //  Duyệt lấy ra từng geo và tô màu 
+                    for(let geo of resultjs){
+                        var strObjJson = createJsonObj4(geo);
+                        var objJson = JSON.parse(strObjJson);
+                        highLightGeoJsonObj4(objJson);
+                    }
+                }
+               
+                // highLightObj(getGeoCMRToAjax(initDB()));
+                function Test4() {
+                    //alert("coordinate: " + evt.coordinate);
+                    // var myPoint = 'POINT(12,5)';
+                    var lon = 105.142431745547000;
+                    var lat = 10.572287031767900;
+                    var myPoint = 'POINT(106.630784879871996 10.757754740205399)';
+                    // soca là ca nhiễm t test, b tạo 1 mảng ở đây và truyền hai biến giới hạn ca nhiem  để truy vấn
+                    // Thêm hai biến ở dòng 210, tương tự như t truyền soCa nhé,
+                    // hoặc copy chạy lại nhiều lần đoạn bên dưới cũng đc , vậy cho dễ
+                    var soCa = 50;
+                    //alert("myPoint: " + myPoint);
+                    //*
+                    $.ajax({
+                        type: "POST",
+                        url: "myAPI.php",
+                        //dataType: 'json',
+                        data: {functionname: 'getGeoCMRToAjax4', paPoint: myPoint, caNhiem: soCa},
+                        success : function (result, status, erro) {
+                            highLightObj4(result);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
+                    
+                    });
+                };
+                Test4();
             };
         //});
 

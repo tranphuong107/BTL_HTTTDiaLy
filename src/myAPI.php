@@ -7,9 +7,21 @@
         $functionname = $_POST['functionname'];
         
         $aResult = "null";
-        if ($functionname == 'getGeoCMRToAjax'){
+        if ($functionname == 'getGeoCMRToAjax1'){
             $caNhiem = $_POST['caNhiem'];
-            $aResult = getGeoCMRToAjax($paPDO,$caNhiem);
+            $aResult = getGeoCMRToAjax1($paPDO,$caNhiem);
+        }
+        else if ($functionname == 'getGeoCMRToAjax2'){
+            $caNhiem = $_POST['caNhiem'];
+            $aResult = getGeoCMRToAjax2($paPDO);
+        }
+        else if ($functionname == 'getGeoCMRToAjax3'){
+            $caNhiem = $_POST['caNhiem'];
+            $aResult = getGeoCMRToAjax3($paPDO);
+        }
+        else if ($functionname == 'getGeoCMRToAjax4'){
+            $caNhiem = $_POST['caNhiem'];
+            $aResult = getGeoCMRToAjax4($paPDO);
         }
         else if ($functionname == 'getInfoCMRToAjax')
             $aResult = getInfoCMRToAjax($paPDO, $paSRID, $paPoint);
@@ -79,7 +91,7 @@
             return "null";
     }
     // Hàm fill màu theo canhiem
-    function getGeoCMRToAjax($paPDO,$caNhiem)
+    function getGeoCMRToAjax1($paPDO,$caNhiem)
     {
         //  chỉnh sửa lại hàm thành ba biến truyền vào, lấy hai biến còn lại để truy vấn kiểu như này
         // canhiem >= 0 (biến 1) và canhiem < 50 (biến hai)
@@ -99,7 +111,73 @@
         else
             return "null";
     }
-    getGeoCMRToAjax(initDB(),50);
+    getGeoCMRToAjax1(initDB(),50);
+
+    function getGeoCMRToAjax2($paPDO)
+    {
+        //  chỉnh sửa lại hàm thành ba biến truyền vào, lấy hai biến còn lại để truy vấn kiểu như này
+        // canhiem >= 0 (biến 1) và canhiem < 50 (biến hai)
+        $mySQLStr = "SELECT ST_AsGeoJson(gadm41_vnm_1.geom) as geo from dlieu_point, gadm41_vnm_1 
+         where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and canhiem <= 100 and canhiem > 50";
+        $result = query($paPDO, $mySQLStr);
+        // echo json_encode($result) ;
+        $ketqua = array();
+        if ($result != null)
+        {
+            // Lặp kết quả
+            foreach ($result as $item){
+                array_push($ketqua,$item['geo']);
+            }
+            return json_encode($ketqua);
+        }
+        else
+            return "null";
+    }
+    getGeoCMRToAjax2(initDB());
+
+    function getGeoCMRToAjax3($paPDO)
+    {
+        //  chỉnh sửa lại hàm thành ba biến truyền vào, lấy hai biến còn lại để truy vấn kiểu như này
+        // canhiem >= 0 (biến 1) và canhiem < 50 (biến hai)
+        $mySQLStr = "SELECT ST_AsGeoJson(gadm41_vnm_1.geom) as geo from dlieu_point, gadm41_vnm_1 
+         where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and canhiem <= 150 and canhiem >100 ";
+        $result = query($paPDO, $mySQLStr);
+        // echo json_encode($result) ;
+        $ketqua = array();
+        if ($result != null)
+        {
+            // Lặp kết quả
+            foreach ($result as $item){
+                array_push($ketqua,$item['geo']);
+            }
+            return json_encode($ketqua);
+        }
+        else
+            return "null";
+    }
+    getGeoCMRToAjax3(initDB());
+
+    function getGeoCMRToAjax4($paPDO)
+    {
+        //  chỉnh sửa lại hàm thành ba biến truyền vào, lấy hai biến còn lại để truy vấn kiểu như này
+        // canhiem >= 0 (biến 1) và canhiem < 50 (biến hai)
+        $mySQLStr = "SELECT ST_AsGeoJson(gadm41_vnm_1.geom) as geo from dlieu_point, gadm41_vnm_1 
+         where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and canhiem > 150 ";
+        $result = query($paPDO, $mySQLStr);
+        // echo json_encode($result) ;
+        $ketqua = array();
+        if ($result != null)
+        {
+            // Lặp kết quả
+            foreach ($result as $item){
+                array_push($ketqua,$item['geo']);
+            }
+            return json_encode($ketqua);
+        }
+        else
+            return "null";
+    }
+    getGeoCMRToAjax4(initDB());
     function getInfoCMRToAjax($paPDO,$paSRID,$paPoint)
     {
         //echo $paPoint;
