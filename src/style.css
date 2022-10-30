@@ -1,0 +1,180 @@
+  /*
+            .map, .righ-panel {
+                height: 500px;
+                width: 80%;
+                float: left;
+            }
+            */
+  /* .map, .righ-panel {
+                height: 98vh;
+                width: 80vw;
+                float: left;
+            } */
+  * {
+      box-sizing: border-box;
+  }
+
+  .map {
+      position: relative;
+      /* border: 1px solid #000; */
+      height: 100vh;
+  }
+
+  #info {
+      width: 200px;
+      position: absolute;
+      right: 10px;
+      top: 50px;
+      z-index: 1;
+      background-color: #f2f3f4;
+      min-height: 250px;
+      border-radius: 5px;
+      display: none;
+  }
+
+  .header-infor {
+      text-align: center;
+      background-color: #0892d0;
+      color: #f2f3f4;
+      margin: 0;
+      padding: 0.5px;
+      border-radius: 5px 5px 0 0;
+      position: relative;
+  }
+
+  .header-infor>i {
+      color: #333;
+      position: absolute;
+      right: 10px;
+      top: 20%;
+      color: #fff;
+      cursor: pointer;
+  }
+
+  .infor-success {
+      margin-left: 40px;
+  }
+
+  .infor-fail>p {
+      text-align: center;
+
+  }
+
+  /* bắt đầu css cho thống kê */
+  .thongKe {
+      width: 250px;
+      position: absolute;
+      left: 30px;
+      top: 80px;
+      z-index: 1;
+      min-height: 200px;
+      border-radius: 5px;
+      background-color: #fff;
+      border-radius: 5px;
+  }
+
+  .thongKe p {
+      text-align: center;
+      background-color: #0892d0;
+      margin: 0;
+      padding: 16px;
+      color: #fff;
+      border-radius: 5px 5px 0 0;
+  }
+
+  .thongKe ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+  }
+
+  /* .red ul {
+      display: none;
+  } */
+
+  .list>li {
+      padding: 10px;
+      border-top: solid 1px #c0c0c0;
+      box-sizing: border-box;
+      padding-left: 50px;
+      cursor: pointer;
+  }
+
+  .red {
+      position: relative;
+  }
+
+  .orange {
+      position: relative;
+  }
+
+  .yellow {
+      position: relative;
+  }
+
+  .green {
+      position: relative;
+  }
+
+  .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 100%;
+      float: left;
+      position: absolute;
+      top: 50%;
+      left: 30px;
+      transform: translateY(-50%);
+  }
+
+  .dot_red {
+      background-color: red;
+  }
+
+  .dot_orange {
+      background-color: orange;
+  }
+
+  .dot_yellow {
+      background-color: yellow;
+  }
+
+  .dot_green {
+      background-color: green;
+  }
+
+  .header-thongKe {
+      text-align: center;
+      background-color: #0892d0;
+      color: #f2f3f4;
+      margin: 0;
+      padding: 0.5px;
+      border-radius: 5px 5px 0 0;
+      position: relative;
+  }
+
+  .header-thongKe>i {
+      color: #333;
+      position: absolute;
+      right: 10px;
+      top: 20%;
+      color: #fff;
+      cursor: pointer;
+  }
+
+  .content-list-item li {
+      padding: 6px;
+      border-top: solid 1px #c0c0c0;
+      box-sizing: border-box;
+      padding-left: 80px;
+      cursor: pointer;
+      background-color: #f4f0ec;
+  }
+  .content-list-item{
+    max-height: 200px;
+    overflow: auto;
+    display: none;
+  }
+
+
+  /* kết thúc css cho thống kê */

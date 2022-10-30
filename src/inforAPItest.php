@@ -121,7 +121,7 @@
         {
             $resFin = '<div class ="header-infor">';
             $resFin = $resFin.'<p>Thông tin vùng</p>';
-            // $resFin = $resFin.'<i class="fa-solid fa-xmark"></i>';
+            $resFin = $resFin.'<i class="fa-solid fa-xmark"></i>';
             $resFin = $resFin.'</div>';
             $resFin = $resFin.'<div class ="content-info">';
             // Lặp kết quả
@@ -140,7 +140,7 @@
         else{
             $resFin = '<div class ="header-infor">';
             $resFin = $resFin.'<p>Thông tin vùng</p>';
-            // $resFin = $resFin.'<i class="fa-solid fa-xmark"></i>';
+            $resFin = $resFin.'<i class="fa-solid fa-xmark"></i>';
             $resFin = $resFin.'</div>';
             $resFin = $resFin.'<div class ="infor-fail">';
             $resFin = $resFin.'<p>Vui lòng chọn vùng đất liền Việt Nam !</p>';
