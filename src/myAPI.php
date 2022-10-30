@@ -91,7 +91,7 @@
         if ($result != null)
         {
             // Lặp kết quả
-            foreach ($result as $item){
+            foreach ($result as $item){ 
                 array_push($ketqua,$item['geo']);
             }
             return json_encode($ketqua);
