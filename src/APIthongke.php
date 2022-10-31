@@ -146,7 +146,8 @@
 
     // API cho thống kê
     function getGeoStatistic($paPDO,$paSRID,$tinh)  {
-        $mySQLStr = "SELECT x, y, geom  from dlieu_point  where  varname_1 = '".$tinh."'";
+        $mySQLStr = "SELECT x, y, geom  from dlieu_point, gadm41_vnm_1 
+        where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and name_1 = '".$tinh."'";
         // echo $tinh;
         // echo $mySQLStr;
         // lấy x, y để biểu diễn bản đồ được click, hai điểm này sẽ đc lấy làm center của map để hiển thị bản đồ
@@ -173,7 +174,7 @@
         //echo "<br>";
         //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where ST_Within('SRID=4326;POINT(12 5)'::geometry,geom)";
         $mySQLStr = "SELECT ST_AsGeoJson(gadm41_vnm_1.geom) as geo from dlieu_point, gadm41_vnm_1 
-        where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and dlieu_point.varname_1 = '".$tinh."'";
+        where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and name_1 = '".$tinh."'";
         // echo $mySQLStr;
         //echo "<br><br>";
         $result = query($paPDO, $mySQLStr);
