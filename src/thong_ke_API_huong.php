@@ -210,7 +210,7 @@
             }
             $resFin = '<ul>';
             foreach ($ketqua as $item){
-                $resFin = $resFin.'<li>'.$item;
+                $resFin = $resFin.'<li class="tinhThanh>'.$item.'</li>';
                 //echo $item;
             }
             //$resFin = $resFin.'</ul>';
@@ -244,7 +244,7 @@
             }
             $resFin = '<ul>';
             foreach ($ketqua as $item){
-                $resFin = $resFin.'<li>'.$item;
+                $resFin = $resFin.'<li class="tinhThanh>'.$item.'</li>';
                 //echo $item;
             }
             //$resFin = $resFin.'</ul>';
@@ -278,7 +278,7 @@
             }
             $resFin = '<ul>';
             foreach ($ketqua as $item){
-                $resFin = $resFin.'<li>'.$item;
+                $resFin = $resFin.'<li class="tinhThanh>'.$item.'</li>';
                 //echo $item;
             }
             //$resFin = $resFin.'</ul>';
@@ -312,7 +312,7 @@
             }
             $resFin = '<ul>';
             foreach ($ketqua as $item){
-                $resFin = $resFin.'<li>'.$item;
+                $resFin = $resFin.'<li class="tinhThanh>'.$item.'</li>';
                 //echo $item;
             }
             //$resFin = $resFin.'</ul>';

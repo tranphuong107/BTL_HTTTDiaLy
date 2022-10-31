@@ -42,15 +42,7 @@
                             </li>
                             <div id='thongke_do' class ="content-list-item list-item-red">
                                         <ul>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li>
+                                        <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>                                          
                                         </ul>
                             </div>
                             <li class ="list-item orange">
@@ -61,14 +53,6 @@
                             <div id='thongke_cam' class ="content-list-item list-item">
                                         <ul>
                                         <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li>
                                         </ul>
                             </div>
                             <li class ="list-item yellow">
@@ -78,14 +62,6 @@
                             <div id='thongke_vang' class ="content-list-item list-item">
                                         <ul>
                                         <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li>
                                         </ul>
                             </div>
                             <li class ="list-item green">
@@ -95,14 +71,6 @@
                             <div id='thongke_xanh' class ="content-list-item list-item">
                                         <ul>
                                         <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li>
                                         </ul>
                             </div>
                         </ul>
