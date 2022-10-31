@@ -5,24 +5,28 @@
         $paSRID = '4326'; 
         $paPoint = $_POST['paPoint'];
         $functionname = $_POST['functionname'];
+        
         $aResult = "null";
         if ($functionname == 'getGeoCMRToAjax')
-            $aResult = getGeoCMRToAjax($paPDO, $paSRID, $paPoint);
+        $aResult = getGeoCMRToAjax($paPDO, $paSRID, $paPoint);
         else if ($functionname == 'getInfoCMRToAjax')
             $aResult = getInfoCMRToAjax($paPDO, $paSRID, $paPoint);
-        else if ($functionname == 'getGeoStatistic' || $functionname == 'getGeoThongkeToAjax'){
-            $tinh = $_POST['tinh'];
-            if ($functionname == 'getGeoStatistic'){
-                $aResult = getGeoStatistic($paPDO,$paSRID,$tinh);
-            }
-            else if ($functionname == 'getGeoThongkeToAjax'){
-                $aResult = getGeoThongkeToAjax($paPDO,$paSRID,$tinh);
-            }
-        }
+        else if ($functionname == 'getGeoStatistic')
+            $aResult = getGeoStatistic($paPDO, $paSRID);
+        else if ($functionname == 'getGeoThongkeToAjax')
+            $aResult = getGeoThongkeToAjax($paPDO, $paSRID);
+        else if ($functionname == 'getTinh1')
+            $aResult = getTinh1($paPDO);
+        else if ($functionname == 'getTinh2')
+            $aResult = getTinh2($paPDO);
+        else if ($functionname == 'getTinh3')
+            $aResult = getTinh3($paPDO);
+        else if ($functionname == 'getTinh4')
+            $aResult = getTinh4($paPDO);
         echo $aResult;
     
         closeDB($paPDO);
-    }
+    } 
 
     function initDB()
     {
@@ -145,10 +149,8 @@
 
 
     // API cho thống kê
-    function getGeoStatistic($paPDO,$paSRID,$tinh)  {
-        $mySQLStr = "SELECT x, y, geom  from dlieu_point, gadm41_vnm_1 
-        where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and name_1 = '".$tinh."'";
-        // echo $tinh;
+    function getGeoStatistic($paPDO)  {
+        $mySQLStr = "SELECT x, y, geom  from dlieu_point  where  varname_1 = 'Ho Chi Minh' ";
         // echo $mySQLStr;
         // lấy x, y để biểu diễn bản đồ được click, hai điểm này sẽ đc lấy làm center của map để hiển thị bản đồ
         $result = query($paPDO, $mySQLStr);
@@ -163,9 +165,8 @@
         else
             return "null 99";
     }
-    // getGeoStatistic(initDB(),'4326','Ho Chi Minh');
 
-    function getGeoThongkeToAjax($paPDO,$paSRID,$tinh)
+    function getGeoThongkeToAjax($paPDO,$paSRID)
     {
         //echo $paPoint;
         //echo "<br>";
@@ -174,7 +175,7 @@
         //echo "<br>";
         //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where ST_Within('SRID=4326;POINT(12 5)'::geometry,geom)";
         $mySQLStr = "SELECT ST_AsGeoJson(gadm41_vnm_1.geom) as geo from dlieu_point, gadm41_vnm_1 
-        where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and name_1 = '".$tinh."'";
+        where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and dlieu_point.varname_1 = 'Ho Chi Minh'";
         // echo $mySQLStr;
         //echo "<br><br>";
         $result = query($paPDO, $mySQLStr);
@@ -189,5 +190,140 @@
         else
             return "null";
     }
-    // getGeoThongkeToAjax(initDB(),'4326','Ho Chi Minh');
+     //Vung xanh
+     function getTinh1($paPDO)
+    {
+        $mySQLStr = "SELECT gadm41_vnm_1.name_1 from \"gadm41_vnm_1\", \"dlieu_point\"
+         where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and canhiem <= 50 ";
+        
+        //echo $mySQLStr; 
+        //echo "<br><br>";
+        $result = query($paPDO, $mySQLStr);
+        //echo json_encode($result);
+
+        $ketqua = array();
+        if ($result != null)
+        {
+            // Lặp kết quả
+            foreach ($result as $item){
+                array_push($ketqua,$item['name_1']);
+            }
+            $resFin = '<ul>';
+            foreach ($ketqua as $item){
+                $resFin = $resFin.'<li>'.$item;
+                //echo $item;
+            }
+            //$resFin = $resFin.'</ul>';
+            //echo json_encode($resFin);
+            return $resFin;
+            //echo json_encode($ketqua);
+
+        }
+        else
+            return "null";
+    }
+    getTinh1(initDB());
+
+    //Vung vang
+    function getTinh2($paPDO)
+    {
+        $mySQLStr = "SELECT gadm41_vnm_1.name_1 from \"gadm41_vnm_1\", \"dlieu_point\"
+         where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and canhiem <= 100 and canhiem > 50 ";
+        
+        //echo $mySQLStr; 
+        //echo "<br><br>";
+        $result = query($paPDO, $mySQLStr);
+        //echo json_encode($result);
+
+        $ketqua = array();
+        if ($result != null)
+        {
+            // Lặp kết quả
+            foreach ($result as $item){
+                array_push($ketqua,$item['name_1']);
+            }
+            $resFin = '<ul>';
+            foreach ($ketqua as $item){
+                $resFin = $resFin.'<li>'.$item;
+                //echo $item;
+            }
+            //$resFin = $resFin.'</ul>';
+            //echo json_encode($resFin);
+            return $resFin;
+            //echo json_encode($ketqua);
+
+        }
+        else
+            return "null";
+    }
+    getTinh2(initDB());
+
+    //Vung cam
+    function getTinh3($paPDO)
+    {
+        $mySQLStr = "SELECT gadm41_vnm_1.name_1 from \"gadm41_vnm_1\", \"dlieu_point\"
+         where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and canhiem <= 150 and canhiem >100 ";
+        
+        //echo $mySQLStr; 
+        //echo "<br><br>";
+        $result = query($paPDO, $mySQLStr);
+        //echo json_encode($result);
+
+        $ketqua = array();
+        if ($result != null)
+        {
+            // Lặp kết quả
+            foreach ($result as $item){
+                array_push($ketqua,$item['name_1']);
+            }
+            $resFin = '<ul>';
+            foreach ($ketqua as $item){
+                $resFin = $resFin.'<li>'.$item;
+                //echo $item;
+            }
+            //$resFin = $resFin.'</ul>';
+            //echo json_encode($resFin);
+            return $resFin;
+            //echo json_encode($ketqua);
+
+        }
+        else
+            return "null";
+    }
+    getTinh3(initDB());
+
+    //Vung do
+    function getTinh4($paPDO)
+    {
+        $mySQLStr = "SELECT gadm41_vnm_1.name_1 from \"gadm41_vnm_1\", \"dlieu_point\"
+         where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and canhiem > 150 ";
+        
+        //echo $mySQLStr; 
+        //echo "<br><br>";
+        $result = query($paPDO, $mySQLStr);
+        //echo json_encode($result);
+
+        $ketqua = array();
+        if ($result != null)
+        {
+            // Lặp kết quả
+            foreach ($result as $item){
+                array_push($ketqua,$item['name_1']);
+            }
+            $resFin = '<ul>';
+            foreach ($ketqua as $item){
+                $resFin = $resFin.'<li>'.$item;
+                //echo $item;
+            }
+            //$resFin = $resFin.'</ul>';
+            //echo json_encode($resFin);
+            return $resFin;
+            //echo json_encode($ketqua);
+
+        }
+        else
+            return "null";
+    }
+    getTinh4(initDB());
+
 ?>

@@ -25,8 +25,8 @@
         }
         else if ($functionname == 'getInfoCMRToAjax')
             $aResult = getInfoCMRToAjax($paPDO, $paSRID, $paPoint);
-        else if ($functionname == 'getGeoFillColorToAjax')
-            $aResult = getGeoFillColorToAjax($paPDO, $paSRID);
+        // else if ($functionname == 'getGeoFillColorToAjax')
+        //     $aResult = getGeoFillColorToAjax($paPDO, $paSRID);
         echo $aResult;
     
         closeDB($paPDO);
