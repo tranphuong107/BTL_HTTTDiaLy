@@ -2,7 +2,7 @@
     if(isset($_POST['functionname'])) 
     {
         $paPDO = initDB();
-        $paSRID = '0'; 
+        $paSRID = '4326'; 
         $paPoint = $_POST['paPoint'];
         $functionname = $_POST['functionname'];
         
