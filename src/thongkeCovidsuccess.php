@@ -137,8 +137,11 @@
                 
                 var styles = {
                     'MultiPolygon': new ol.style.Style({
+                        fill: new ol.style.Fill({
+                            color: '#778899'
+                        }),
                         stroke: new ol.style.Stroke({
-                            color: 'blue', 
+                            color: '#778899', 
                             width: 2
                         })
                     })
@@ -265,7 +268,7 @@
                             //dataType: 'json',
                             //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
                             data: {functionname: 'getGeoStatistic', paPoint: myPoint, tinh: tenTinh},
-                            success : function (result, status, erro) {
+                            success : function (result, status, error) {
                                 displayGeoStatistic(result);
                             },
                             error: function (req, status, error) {
@@ -290,7 +293,8 @@
                 }
 
                 //Đổ màu vùng xanh
-                var style1 = {
+                function highLightGeoJsonObj1(paObjJson) {
+                    var style1 = {
                     'MultiPolygon': new ol.style.Style({
                         fill: new ol.style.Fill({
                             color: 'rgba(103,228,78,0.4)'
@@ -301,18 +305,18 @@
                         })
                     })
 
-                };
-                var styleFunction1 = function (
-                    feature) {
-                    return style1[feature.getGeometry().getType()];
-                };
-                var vectorLayer = new ol.layer.Vector({
-                    style: styleFunction1
-                });
-                map.addLayer(vectorLayer);
+                    };
+                    var styleFunction1 = function (
+                        feature) {
+                        return style1[feature.getGeometry().getType()];
+                    };
+                    var vectorLayer = new ol.layer.Vector({
+                        style: styleFunction1
+                    });
 
-               
-                function highLightGeoJsonObj1(paObjJson) {
+                    map.addLayer(vectorLayer);
+
+
                     var vectorSource = new ol.source.Vector({
                         features: (new ol.format.GeoJSON()).readFeatures(paObjJson, {
                             dataProjection: 'EPSG:4326',
@@ -356,7 +360,11 @@
                 Test1();
 
                 //Đổ màu vùng vàng
-                var style2 = {
+                
+                
+                function highLightGeoJsonObj2(paObjJson) {
+
+                    var style2 = {
                     'MultiPolygon': new ol.style.Style({
                         fill: new ol.style.Fill({
                             color: 'rgba(244,243,61,0.4)'
@@ -367,18 +375,18 @@
                         })
                     })
 
-                };
-                var styleFunction2 = function (
-                    feature) {
-                    return style2[feature.getGeometry().getType()];
-                };
-                var vectorLayer = new ol.layer.Vector({
-                    style: styleFunction2
-                });
-                map.addLayer(vectorLayer);
+                    };
+                    var styleFunction2 = function (
+                        feature) {
+                        return style2[feature.getGeometry().getType()];
+                    };
+                    var vectorLayer = new ol.layer.Vector({
+                        style: styleFunction2
+                    });
+                    map.addLayer(vectorLayer);
+
+
                            
-                
-                function highLightGeoJsonObj2(paObjJson) {
                     var vectorSource = new ol.source.Vector({
                         features: (new ol.format.GeoJSON()).readFeatures(paObjJson, {
                             dataProjection: 'EPSG:4326',
@@ -423,7 +431,11 @@
                 Test2();
 
                 //Đổ màu vùng cam
-                var style3 = {
+                
+
+                function highLightGeoJsonObj3(paObjJson) {
+
+                    var style3 = {
                     'MultiPolygon': new ol.style.Style({
                         fill: new ol.style.Fill({
                             color: 'rgba(255,147,22,0.4)'
@@ -434,17 +446,18 @@
                         })
                     })
 
-                };
-                var styleFunction3 = function (
-                    feature) {
-                    return style3[feature.getGeometry().getType()];
-                };
-                var vectorLayer = new ol.layer.Vector({
-                    style: styleFunction3
-                });
-                map.addLayer(vectorLayer);
+                    };
+                    var styleFunction3 = function (
+                        feature) {
+                        return style3[feature.getGeometry().getType()];
+                    };
+                    var vectorLayer = new ol.layer.Vector({
+                        style: styleFunction3
+                    });
+                    map.addLayer(vectorLayer);
 
-                function highLightGeoJsonObj3(paObjJson) {
+
+                    
                     var vectorSource = new ol.source.Vector({
                         features: (new ol.format.GeoJSON()).readFeatures(paObjJson, {
                             dataProjection: 'EPSG:4326',
@@ -489,7 +502,9 @@
                 };
                 Test3();
 
-                var style4 = {
+                function highLightGeoJsonObj4(paObjJson) {
+
+                    var style4 = {
                     'MultiPolygon': new ol.style.Style({
                         fill: new ol.style.Fill({
                             color: 'rgba(255,22,22,0.4)'
@@ -500,17 +515,17 @@
                         })
                     })
 
-                };
-                var styleFunction4 = function (
-                    feature) {
-                    return style4[feature.getGeometry().getType()];
-                };
-                var vectorLayer = new ol.layer.Vector({
-                    style: styleFunction4
-                });
-                map.addLayer(vectorLayer);
+                    };
+                    var styleFunction4 = function (
+                        feature) {
+                        return style4[feature.getGeometry().getType()];
+                    };
+                    var vectorLayer = new ol.layer.Vector({
+                        style: styleFunction4
+                    });
+                    map.addLayer(vectorLayer);
 
-                function highLightGeoJsonObj4(paObjJson) {
+
                     var vectorSource = new ol.source.Vector({
                         features: (new ol.format.GeoJSON()).readFeatures(paObjJson, {
                             dataProjection: 'EPSG:4326',
@@ -518,11 +533,11 @@
                         })
                     });
 					
-                    var vectorLayer = new ol.layer.Vector({
+                    var vectorLayer4 = new ol.layer.Vector({
                         style: styleFunction4,
                         source: vectorSource
                     });
-                    map.addLayer(vectorLayer);
+                    map.addLayer(vectorLayer4);
                                  }
                 function highLightObj4(result) {
                     var resultjs = JSON.parse(result)
