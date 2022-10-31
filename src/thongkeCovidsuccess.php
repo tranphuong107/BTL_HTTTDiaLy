@@ -40,7 +40,7 @@
                             </li>
                             <div class ="content-list-item list-item-red">
                                         <ul>
-                                        <li class ="tinhThanh">Da Nang</li>
+                                        <li class ="tinhThanh">Đà Nẵng</li>
                                         </ul>
                             </div>
                             <li class ="list-item orange">
@@ -59,7 +59,7 @@
                             </li>   
                             <div class ="content-list-item list-item">
                                         <ul>
-                                        <li class ="tinhThanh">Ho Chi Minh</li>
+                                        <li class ="tinhThanh">Hồ Chí Minh</li>
                                         </ul>
                             </div>
                             <li class ="list-item green">
@@ -68,7 +68,7 @@
                             </li>
                             <div class ="content-list-item list-item">
                                         <ul>
-                                        <li class ="tinhThanh">Ca Mau</li>
+                                        <li class ="tinhThanh">Cà Mau</li>
                                         </ul>
                             </div>
                         </ul>
