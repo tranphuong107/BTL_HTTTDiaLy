@@ -146,7 +146,7 @@
 
     // API cho thống kê
     function getGeoStatistic($paPDO,$paSRID,$tinh)  {
-        $mySQLStr = "SELECT x, y, geom  from dlieu_point, gadm41_vnm_1 
+        $mySQLStr = "SELECT x, y from dlieu_point, gadm41_vnm_1 
         where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and name_1 = '".$tinh."'";
         // echo $tinh;
         // echo $mySQLStr;
@@ -156,14 +156,14 @@
         if ($result != null)
         {
             foreach ($result as $item){
-                $ketqua = array($item['x'],$item['y'],$item['geom']);
+                $ketqua = array($item['x'],$item['y']);
             }
-            return json_encode($ketqua);
+            echo json_encode($ketqua);
         }
         else
             return "null 99";
     }
-    // getGeoStatistic(initDB(),'4326','Ho Chi Minh');
+    // getGeoStatistic(initDB(),'4326','Hồ Chí Minh');
 
     function getGeoThongkeToAjax($paPDO,$paSRID,$tinh)
     {
