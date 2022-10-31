@@ -1,0 +1,113 @@
+
+/* bắt đầu css cho thống kê vùng*/
+.thongKeVung {
+    width: 150px;
+    position: absolute;
+    bottom: 80px;
+    right: 30px;
+    z-index: 1;
+    min-height: 200px;
+    border-radius: 5px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.thongKeVung p {
+    text-align: center;
+    background-color: #0892d0;
+    margin: 0;
+    padding: 16px;
+    color: #fff;
+    border-radius: 5px 5px 0 0;
+}
+
+.thongKeVung ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list>li {
+    padding: 10px;
+    border-top: solid 1px #c0c0c0;
+    box-sizing: border-box;
+    padding-left: 50px;
+    cursor: pointer;
+}
+
+.red {
+    position: relative;
+}
+
+.orange {
+    position: relative;
+}
+
+.yellow {
+    position: relative;
+}
+
+.green {
+    position: relative;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    float: left;
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    transform: translateY(-50%);
+}
+
+.dot_red {
+    background-color: red;
+}
+
+.dot_orange {
+    background-color: orange;
+}
+
+.dot_yellow {
+    background-color: yellow;
+}
+
+.dot_green {
+    background-color: green;
+}
+
+.header-thongKeVung {
+    text-align: center;
+    background-color: #0892d0;
+    color: #f2f3f4;
+    margin: 0;
+    padding: 0.5px;
+    border-radius: 5px 5px 0 0;
+    position: relative;
+}
+
+.header-thongKeVung>i {
+    color: #333;
+    position: absolute;
+    right: 10px;
+    top: 20%;
+    color: #fff;
+    cursor: pointer;
+}
+
+.content-list-item li {
+    padding: 6px;
+    border-top: solid 1px #c0c0c0;
+    box-sizing: border-box;
+    padding-left: 80px;
+    cursor: pointer;
+    background-color: #f4f0ec;
+}
+
+.content-list-item {
+    max-height: 200px;
+    overflow: auto;
+    display: none;
+}

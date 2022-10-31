@@ -15,6 +15,7 @@
         <script src="http://localhost:8081/libs/jquery/jquery-3.4.1.min.js" type="text/javascript"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="styleHienThi.css">
     </head>
     <body onload="initialize_map();">
         
@@ -26,6 +27,39 @@
                             </div>
                             <div id="content-infor"></div>
                         </div>
+                        <div class="thongKeVung" id='thongKeVung'>
+                            <div class ="header-thongKeVung">
+                                <p>Hiển thị</p>
+                                <!-- <i class="fa-solid fa-xmark cancel"></i> -->
+                            </div>
+                            <ul class ="list">
+                                <li class ="list-item red">
+                                    <div class ="dot dot_red"></div>
+                                    <span class="list-span-red">Vùng đỏ</span>
+                                </li>
+                                <div id='thongke' class ="content-list-item list-item-red">
+                                </div>
+                                <li class ="list-item orange">
+                                    <div class ="dot dot_orange"></div>
+                                    <span class="list-span-orange">Vùng cam</span>
+                                    
+                                </li>
+                                <div class ="content-list-item list-item">
+                                </div>
+                                <li class ="list-item yellow">
+                                    <div class ="dot dot_yellow"></div>
+                                    <span class="list-span-yellow">Vùng vàng</span>
+                                </li>   
+                                <div class ="content-list-item list-item">
+                                </div>
+                                <li class ="list-item green">
+                                    <div class ="dot dot_green"></div>
+                                    <span class="list-span-green">Vùng xanh</span>
+                                </li>
+                                <div class ="content-list-item list-item">
+                                </div>
+                            </ul>
+                        </div>  
                     </div>
                     <!--<div id="map" style="width: 80vw; height: 100vh;"></div>-->
                     <div class="thongKe" id='thongKe'>
@@ -73,6 +107,8 @@
                             </div>
                         </ul>
                     </div>
+
+                    
 
                     
                     <!-- <button>Button</button> -->
@@ -238,7 +274,7 @@
                     displayInfoCovid()
                 });
                 //Kết thúc Phương
-                
+
                 // Thống kê các vùng, khi click vào tên trong list thống kê, hiển thị bản đồ ở đó Phương
                 function displayGeoStatistic(result) {
                     var resultjs = JSON.parse(result)
@@ -324,7 +360,6 @@
                     
                     });
                 };
-                Test1();
 
                 //Đổ màu vùng vàng
                 
@@ -395,11 +430,8 @@
                     
                     });
                 };
-                Test2();
 
                 //Đổ màu vùng cam
-                
-
                 function highLightGeoJsonObj3(paObjJson) {
                     var style3 = {
                     'MultiPolygon': new ol.style.Style({
@@ -466,7 +498,6 @@
                     
                     });
                 };
-                Test3();
 
                 function highLightGeoJsonObj4(paObjJson) {
 
@@ -532,7 +563,6 @@
                     
                     });
                 };
-                Test4();
             // kết thúc My
 
             // Hường
@@ -785,9 +815,25 @@
                 }
             getThongTinTinh4();
             // kết thúc Hường
+            // Linh
+            let HienThiVungXanh = document.querySelector(".list-span-green");
+                HienThiVungXanh.onclick=function(){
+                    Test1();
+            }
+            let HienThiVungVang = document.querySelector(".list-span-yellow");
+                HienThiVungVang.onclick=function(){
+                    Test2();
+            }
+            let HienThiVungCam = document.querySelector(".list-span-orange");
+                HienThiVungCam.onclick=function(){
+                    Test3();
+            }
+            let HienThiVungDo = document.querySelector(".list-span-red");
+                HienThiVungDo.onclick=function(){
+                    Test4();
+            }
+            // Kết thúc Linh
         };
-    
-      
         </script>
     </body>
     <script src="main.js"></script>
