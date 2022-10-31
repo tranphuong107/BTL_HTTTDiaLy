@@ -38,7 +38,7 @@
                                 <div class ="dot dot_red"></div>
                                 <span class="list-span">Vùng nguy cơ rất cao</span>
                             </li>
-                            <div id='thongke' class ="content-list-item list-item-red">
+                            <div id='thongke_do' class ="content-list-item list-item-red">
                                         <ul>
                                         <li class ="tinhThanh">Đà Nẵng</li>
                                         </ul>
@@ -48,7 +48,7 @@
                                 <span class="list-span">Vùng nguy cơ cao</span>
                                 
                             </li>
-                            <div class ="content-list-item list-item">
+                            <div id='thongke_cam' class ="content-list-item list-item">
                                         <ul>
                                         <li class ="tinhThanh">An Giang</li>
                                         </ul>
@@ -57,7 +57,7 @@
                                 <div class ="dot dot_yellow"></div>
                                 <span class="list-span">Vùng nguy cơ trung bình</span>
                             </li>   
-                            <div class ="content-list-item list-item">
+                            <div id='thongke_vang' class ="content-list-item list-item">
                                         <ul>
                                         <li class ="tinhThanh">Hồ Chí Minh</li>
                                         </ul>
@@ -66,7 +66,7 @@
                                 <div class ="dot dot_green"></div>
                                 <span class="list-span">Vùng nguy cơ thấp</span>
                             </li>
-                            <div class ="content-list-item list-item">
+                            <div id='thongke_xanh' class ="content-list-item list-item">
                                         <ul>
                                         <li class ="tinhThanh">Cà Mau</li>
                                         </ul>
@@ -205,6 +205,8 @@
                     var objJson = JSON.parse(strObjJson);
                     highLightGeoJsonObj(objJson);
                 }
+                // Phương
+                //Thông tin dịch bệnh tại vùng khi click
                 map.on('singleclick', function (evt) {
                     var lonlat = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
                     var lon = lonlat[0];   
@@ -235,7 +237,9 @@
                     });
                     displayInfoCovid()
                 });
-                // Thống kê các vùng, khi click vào tên trong list thống kê, hiển thị bản đồ ở đó
+                //Kết thúc Phương
+                
+                // Thống kê các vùng, khi click vào tên trong list thống kê, hiển thị bản đồ ở đó Phương
                 function displayGeoStatistic(result) {
                     var resultjs = JSON.parse(result)
                     var x = +resultjs[0];   
@@ -252,46 +256,9 @@
                             view: viewMap
                         });
                 }
-                
-                let clickName = document.querySelectorAll('.tinhThanh');
-                for (const Tinh of clickName) {
+                // kết thúc thống kê các vùng, khi click vào tên trong list thống kê, hiển thị bản đồ ở đó
 
-                    Tinh.onclick = function (){ 
-                    var tenTinh =  Tinh.innerText;
-                    var lon = 105.142431745547000;
-                    var lat = 10.572287031767900;
-                    var myPoint = 'POINT(' + lon + ' ' + lat + ')';
-                   
-                        $.ajax({
-                            type: "POST",
-                            url: "APIthongke.php",
-                            //dataType: 'json',
-                            //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
-                            data: {functionname: 'getGeoStatistic', paPoint: myPoint, tinh: tenTinh},
-                            success : function (result, status, error) {
-                                displayGeoStatistic(result);
-                            },
-                            error: function (req, status, error) {
-                                alert(req + " " + status + " " + error);
-
-                            }
-                        }); 
-                        $.ajax({
-                            type: "POST",
-                            url: "APIthongke.php",
-                            //dataType: 'json',
-                            data: {functionname: 'getGeoThongkeToAjax', paPoint: myPoint, tinh: tenTinh},
-                            success : function (result1, status, erro) {
-                                highLightObj(result1);
-                            },
-                            error: function (req, status, error) {
-                                alert(req + " " + status + " " + error);
-                            }
-                        });
-
-                    }
-                }
-
+                // My
                 //Đổ màu vùng xanh
                 function highLightGeoJsonObj1(paObjJson) {
                     var style1 = {
@@ -434,7 +401,6 @@
                 
 
                 function highLightGeoJsonObj3(paObjJson) {
-
                     var style3 = {
                     'MultiPolygon': new ol.style.Style({
                         fill: new ol.style.Fill({
@@ -567,10 +533,259 @@
                     });
                 };
                 Test4();
+            // kết thúc My
 
-            
-            
+            // Hường
+            // Thống kê vùng 
+            //vung xanh
+            function getThongTinTinh1() {
+                    $.ajax({
+                        type: "POST",
+                        url: "thong_ke_API_huong.php",
+                        //dataType: 'json',
+                        //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
+                        data: {functionname: 'getTinh1'},
+                        success : function (result, status, erro) {
+                            displayThongTinTinh1(result);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
+
+                        }
+                    });
             };
+            function displayThongTinTinh1(result, coordinate)
+                {
+					document.getElementById('thongke_xanh').innerHTML = result;
+                    const clickName = document.querySelector('#thongke_xanh');
+                    const clickNameUl = clickName.querySelector('ul');
+                    const ClickNameLi = clickNameUl.querySelectorAll('.tinhThanh');
+                    for (const Tinh of ClickNameLi) {
+                        Tinh.onclick = function (){ 
+                        var tenTinh =  Tinh.innerText;
+                        var lon = 105.142431745547000;
+                        var lat = 10.572287031767900;
+                        var myPoint = 'POINT(' + lon + ' ' + lat + ')';
+                    
+                            $.ajax({
+                                type: "POST",
+                                url: "APIthongke.php",
+                                //dataType: 'json',
+                                //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
+                                data: {functionname: 'getGeoStatistic', paPoint: myPoint, tinh: tenTinh},
+                                success : function (result, status, error) {
+                                    displayGeoStatistic(result);
+                                },
+                                error: function (req, status, error) {
+                                    alert(req + " " + status + " " + error);
+
+                                }
+                            }); 
+                            $.ajax({
+                                type: "POST",
+                                url: "APIthongke.php",
+                                //dataType: 'json',
+                                data: {functionname: 'getGeoThongkeToAjax', paPoint: myPoint, tinh: tenTinh},
+                                success : function (result1, status, erro) {
+                                    highLightObj(result1);
+                                },
+                                error: function (req, status, error) {
+                                    alert(req + " " + status + " " + error);
+                                }
+                            });
+
+                        }
+                    }  
+                }
+            getThongTinTinh1();
+
+            //Vung vang
+            function getThongTinTinh2() {
+                    $.ajax({
+                        type: "POST",
+                        url: "thong_ke_API_huong.php",
+                        //dataType: 'json',
+                        //data: {functionname: 'reponseGeoToAjax'},
+                        data: {functionname: 'getTinh2'},
+                        success : function (result, status, erro) {
+                            displayThongTinTinh2(result);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
+
+                        }
+                    });
+            };
+            function displayThongTinTinh2(result, coordinate)
+                {
+					$("#thongke_vang").html(result);
+                    const clickName = document.querySelector('#thongke_vang');
+                    const clickNameUl = clickName.querySelector('ul');
+                    const ClickNameLi = clickNameUl.querySelectorAll('.tinhThanh');
+                    for (const Tinh of ClickNameLi) {
+                        Tinh.onclick = function (){ 
+                        var tenTinh =  Tinh.innerText;
+                        var lon = 105.142431745547000;
+                        var lat = 10.572287031767900;
+                        var myPoint = 'POINT(' + lon + ' ' + lat + ')';
+                    
+                            $.ajax({
+                                type: "POST",
+                                url: "APIthongke.php",
+                                //dataType: 'json',
+                                //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
+                                data: {functionname: 'getGeoStatistic', paPoint: myPoint, tinh: tenTinh},
+                                success : function (result, status, error) {
+                                    displayGeoStatistic(result);
+                                },
+                                error: function (req, status, error) {
+                                    alert(req + " " + status + " " + error);
+
+                                }
+                            }); 
+                            $.ajax({
+                                type: "POST",
+                                url: "APIthongke.php",
+                                //dataType: 'json',
+                                data: {functionname: 'getGeoThongkeToAjax', paPoint: myPoint, tinh: tenTinh},
+                                success : function (result1, status, erro) {
+                                    highLightObj(result1);
+                                },
+                                error: function (req, status, error) {
+                                    alert(req + " " + status + " " + error);
+                                }
+                            });
+
+                        }
+                    }  
+                }
+            getThongTinTinh2();
+
+            //Vung cam
+            function getThongTinTinh3() {
+                    $.ajax({
+                        type: "POST",
+                        url: "thong_ke_API_huong.php",
+                        //dataType: 'json',
+                        //data: {functionname: 'reponseGeoToAjax'},
+                        data: {functionname: 'getTinh3'},
+                        success : function (result, status, erro) {
+                            displayThongTinTinh3(result);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
+
+                        }
+                    });
+            };
+            function displayThongTinTinh3(result, coordinate)
+                {
+					$("#thongke_cam").html(result);
+                    const clickName = document.querySelector('#thongke_cam');
+                    const clickNameUl = clickName.querySelector('ul');
+                    const ClickNameLi = clickNameUl.querySelectorAll('.tinhThanh');
+                    for (const Tinh of ClickNameLi) {
+                        Tinh.onclick = function (){ 
+                        var tenTinh =  Tinh.innerText;
+                        var lon = 105.142431745547000;
+                        var lat = 10.572287031767900;
+                        var myPoint = 'POINT(' + lon + ' ' + lat + ')';
+                    
+                            $.ajax({
+                                type: "POST",
+                                url: "APIthongke.php",
+                                //dataType: 'json',
+                                //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
+                                data: {functionname: 'getGeoStatistic', paPoint: myPoint, tinh: tenTinh},
+                                success : function (result, status, error) {
+                                    displayGeoStatistic(result);
+                                },
+                                error: function (req, status, error) {
+                                    alert(req + " " + status + " " + error);
+
+                                }
+                            }); 
+                            $.ajax({
+                                type: "POST",
+                                url: "APIthongke.php",
+                                //dataType: 'json',
+                                data: {functionname: 'getGeoThongkeToAjax', paPoint: myPoint, tinh: tenTinh},
+                                success : function (result1, status, erro) {
+                                    highLightObj(result1);
+                                },
+                                error: function (req, status, error) {
+                                    alert(req + " " + status + " " + error);
+                                }
+                            });
+
+                        }
+                    }  
+                }
+            getThongTinTinh3();
+
+            //Vung do
+            function getThongTinTinh4() {
+                    $.ajax({
+                        type: "POST",
+                        url: "thong_ke_API_huong.php",
+                        //dataType: 'json',
+                        //data: {functionname: 'reponseGeoToAjax'},
+                        data: {functionname: 'getTinh4'},
+                        success : function (result, status, erro) {
+                            displayThongTinTinh4(result);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
+
+                        }
+                    });
+            };
+            function displayThongTinTinh4(result, coordinate)
+                {
+					$("#thongke_do").html(result);
+                    const clickName = document.querySelector('#thongke_do');
+                    const clickNameUl = clickName.querySelector('ul');
+                    const ClickNameLi = clickNameUl.querySelectorAll('.tinhThanh');
+                    for (const Tinh of ClickNameLi) {
+                        Tinh.onclick = function (){ 
+                        var tenTinh =  Tinh.innerText;
+                        var lon = 105.142431745547000;
+                        var lat = 10.572287031767900;
+                        var myPoint = 'POINT(' + lon + ' ' + lat + ')';
+                    
+                            $.ajax({
+                                type: "POST",
+                                url: "APIthongke.php",
+                                //dataType: 'json',
+                                //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
+                                data: {functionname: 'getGeoStatistic', paPoint: myPoint, tinh: tenTinh},
+                                success : function (result, status, error) {
+                                    displayGeoStatistic(result);
+                                },
+                                error: function (req, status, error) {
+                                    alert(req + " " + status + " " + error);
+
+                                }
+                            }); 
+                            $.ajax({
+                                type: "POST",
+                                url: "APIthongke.php",
+                                //dataType: 'json',
+                                data: {functionname: 'getGeoThongkeToAjax', paPoint: myPoint, tinh: tenTinh},
+                                success : function (result1, status, erro) {
+                                    highLightObj(result1);
+                                },
+                                error: function (req, status, error) {
+                                    alert(req + " " + status + " " + error);
+                                }
+                            });
+
+                        }
+                    }  
+                }
+            getThongTinTinh4();
+            // kết thúc Hường
+        };
     
       
         </script>
