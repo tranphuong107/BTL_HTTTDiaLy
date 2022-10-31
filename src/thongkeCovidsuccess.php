@@ -597,20 +597,20 @@
                         var lat = 10.572287031767900;
                         var myPoint = 'POINT(' + lon + ' ' + lat + ')';
                     
-                            $.ajax({
-                                type: "POST",
-                                url: "APIthongke.php",
-                                //dataType: 'json',
-                                //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
-                                data: {functionname: 'getGeoStatistic', paPoint: myPoint, tinh: tenTinh},
-                                success : function (result, status, error) {
-                                    displayGeoStatistic(result);
-                                },
-                                error: function (req, status, error) {
-                                    alert(req + " " + status + " " + error);
+                            // $.ajax({
+                            //     type: "POST",
+                            //     url: "APIthongke.php",
+                            //     //dataType: 'json',
+                            //     //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
+                            //     data: {functionname: 'getGeoStatistic', paPoint: myPoint, tinh: tenTinh},
+                            //     success : function (result, status, error) {
+                            //         displayGeoStatistic(result);
+                            //     },
+                            //     error: function (req, status, error) {
+                            //         alert(req + " " + status + " " + error);
 
-                                }
-                            }); 
+                            //     }
+                            // }); 
                             $.ajax({
                                 type: "POST",
                                 url: "APIthongke.php",
@@ -659,20 +659,20 @@
                         var lat = 10.572287031767900;
                         var myPoint = 'POINT(' + lon + ' ' + lat + ')';
                     
-                            $.ajax({
-                                type: "POST",
-                                url: "APIthongke.php",
-                                //dataType: 'json',
-                                //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
-                                data: {functionname: 'getGeoStatistic', paPoint: myPoint, tinh: tenTinh},
-                                success : function (result, status, error) {
-                                    displayGeoStatistic(result);
-                                },
-                                error: function (req, status, error) {
-                                    alert(req + " " + status + " " + error);
+                            // $.ajax({
+                            //     type: "POST",
+                            //     url: "APIthongke.php",
+                            //     //dataType: 'json',
+                            //     //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
+                            //     data: {functionname: 'getGeoStatistic', paPoint: myPoint, tinh: tenTinh},
+                            //     success : function (result, status, error) {
+                            //         displayGeoStatistic(result);
+                            //     },
+                            //     error: function (req, status, error) {
+                            //         alert(req + " " + status + " " + error);
 
-                                }
-                            }); 
+                            //     }
+                            // }); 
                             $.ajax({
                                 type: "POST",
                                 url: "APIthongke.php",
@@ -721,20 +721,20 @@
                         var lat = 10.572287031767900;
                         var myPoint = 'POINT(' + lon + ' ' + lat + ')';
                     
-                            $.ajax({
-                                type: "POST",
-                                url: "APIthongke.php",
-                                //dataType: 'json',
-                                //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
-                                data: {functionname: 'getGeoStatistic', paPoint: myPoint, tinh: tenTinh},
-                                success : function (result, status, error) {
-                                    displayGeoStatistic(result);
-                                },
-                                error: function (req, status, error) {
-                                    alert(req + " " + status + " " + error);
+                            // $.ajax({
+                            //     type: "POST",
+                            //     url: "APIthongke.php",
+                            //     //dataType: 'json',
+                            //     //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
+                            //     data: {functionname: 'getGeoStatistic', paPoint: myPoint, tinh: tenTinh},
+                            //     success : function (result, status, error) {
+                            //         displayGeoStatistic(result);
+                            //     },
+                            //     error: function (req, status, error) {
+                            //         alert(req + " " + status + " " + error);
 
-                                }
-                            }); 
+                            //     }
+                            // }); 
                             $.ajax({
                                 type: "POST",
                                 url: "APIthongke.php",
@@ -783,20 +783,20 @@
                         var lat = 10.572287031767900;
                         var myPoint = 'POINT(' + lon + ' ' + lat + ')';
                     
-                            $.ajax({
-                                type: "POST",
-                                url: "APIthongke.php",
-                                //dataType: 'json',
-                                //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
-                                data: {functionname: 'getGeoStatistic', paPoint: myPoint, tinh: tenTinh},
-                                success : function (result, status, error) {
-                                    displayGeoStatistic(result);
-                                },
-                                error: function (req, status, error) {
-                                    alert(req + " " + status + " " + error);
+                            // $.ajax({
+                            //     type: "POST",
+                            //     url: "APIthongke.php",
+                            //     //dataType: 'json',
+                            //     //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
+                            //     data: {functionname: 'getGeoStatistic', paPoint: myPoint, tinh: tenTinh},
+                            //     success : function (result, status, error) {
+                            //         displayGeoStatistic(result);
+                            //     },
+                            //     error: function (req, status, error) {
+                            //         alert(req + " " + status + " " + error);
 
-                                }
-                            }); 
+                            //     }
+                            // }); 
                             $.ajax({
                                 type: "POST",
                                 url: "APIthongke.php",
