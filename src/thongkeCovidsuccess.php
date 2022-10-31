@@ -40,15 +40,7 @@
                             </li>
                             <div class ="content-list-item list-item-red">
                                         <ul>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li>
+                                        <li class ="tinhThanh">Da Nang</li>
                                         </ul>
                             </div>
                             <li class ="list-item orange">
@@ -56,21 +48,18 @@
                                 <span class="list-span">Vùng nguy cơ cao</span>
                                 
                             </li>
+                            <div class ="content-list-item list-item">
+                                        <ul>
+                                        <li class ="tinhThanh">An Giang</li>
+                                        </ul>
+                            </div>
                             <li class ="list-item yellow">
                                 <div class ="dot dot_yellow"></div>
                                 <span class="list-span">Vùng nguy cơ trung bình</span>
                             </li>   
                             <div class ="content-list-item list-item">
                                         <ul>
-                                        <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li>
+                                        <li class ="tinhThanh">Ho Chi Minh</li>
                                         </ul>
                             </div>
                             <li class ="list-item green">
@@ -79,15 +68,7 @@
                             </li>
                             <div class ="content-list-item list-item">
                                         <ul>
-                                        <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
-                                            <li>Hà Nội</li>
-                                            <li>Đà Nẵng</li>
+                                        <li class ="tinhThanh">Ca Mau</li>
                                         </ul>
                             </div>
                         </ul>
@@ -290,40 +271,45 @@
                         });
                 }
                 
-                let clickName = document.querySelector('.tinhThanh');
-                clickName.onclick = function (){ 
+                let clickName = document.querySelectorAll('.tinhThanh');
+                for (const Tinh of clickName) {
+
+                    Tinh.onclick = function (){ 
+                    var tenTinh =  Tinh.innerText;
                     var lon = 105.142431745547000;
                     var lat = 10.572287031767900;
                     var myPoint = 'POINT(' + lon + ' ' + lat + ')';
                    
-                    $.ajax({
-                        type: "POST",
-                        url: "APIthongke.php",
-                        //dataType: 'json',
-                        //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
-                        data: {functionname: 'getGeoStatistic', paPoint: myPoint},
-                        success : function (result, status, erro) {
-                            displayGeoStatistic(result);
-                        },
-                        error: function (req, status, error) {
-                            alert(req + " " + status + " " + error);
+                        $.ajax({
+                            type: "POST",
+                            url: "APIthongke.php",
+                            //dataType: 'json',
+                            //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
+                            data: {functionname: 'getGeoStatistic', paPoint: myPoint, tinh: tenTinh},
+                            success : function (result, status, erro) {
+                                displayGeoStatistic(result);
+                            },
+                            error: function (req, status, error) {
+                                alert(req + " " + status + " " + error);
 
-                        }
-                    }); 
-                    $.ajax({
-                        type: "POST",
-                        url: "APIthongke.php",
-                        //dataType: 'json',
-                        data: {functionname: 'getGeoThongkeToAjax', paPoint: myPoint},
-                        success : function (result1, status, erro) {
-                            highLightObj(result1);
-                        },
-                        error: function (req, status, error) {
-                            alert(req + " " + status + " " + error);
-                        }
-                    });
+                            }
+                        }); 
+                        $.ajax({
+                            type: "POST",
+                            url: "APIthongke.php",
+                            //dataType: 'json',
+                            data: {functionname: 'getGeoThongkeToAjax', paPoint: myPoint, tinh: tenTinh},
+                            success : function (result1, status, erro) {
+                                highLightObj(result1);
+                            },
+                            error: function (req, status, error) {
+                                alert(req + " " + status + " " + error);
+                            }
+                        });
 
+                    }
                 }
+                
                 //Kết thúc Thống kê các vùng, khi click vào tên trong list thống kê, hiển thị bản đồ ở đó
             };
         //});
