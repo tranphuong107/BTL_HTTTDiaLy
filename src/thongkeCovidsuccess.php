@@ -138,7 +138,7 @@
                 var styles = {
                     'MultiPolygon': new ol.style.Style({
                         stroke: new ol.style.Stroke({
-                            color: '#0892d0  ', 
+                            color: 'blue', 
                             width: 2
                         })
                     })
@@ -182,8 +182,6 @@
                 }
                 function displayObjInfo(result, coordinate)
                 {
-                    //alert("result: " + result);
-                    //alert("coordinate des: " + coordinate);
 					$("#content-infor").html(result);
                 }
                 function displayInfoCovid() {
@@ -197,38 +195,21 @@
                         })
                     });
 					vectorLayer.setSource(vectorSource);
-                    /*
-                    var vectorLayer = new ol.layer.Vector({
-                        source: vectorSource
-                    });
-                    map.addLayer(vectorLayer);
-                    */
-                //    console.log(paObjJson);
                 }
+
                 function highLightObj(result) {
-                    //alert("result: " + result);
                     var strObjJson = createJsonObj(result);
-                    //alert(strObjJson);
                     var objJson = JSON.parse(strObjJson);
-                    //alert(JSON.stringify(objJson));
-                    //drawGeoJsonObj(objJson);
                     highLightGeoJsonObj(objJson);
-                    // console.log(result);
                 }
                 map.on('singleclick', function (evt) {
-                    //alert("coordinate org: " + evt.coordinate);
-                    //var myPoint = 'POINT(12,5)';
                     var lonlat = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
                     var lon = lonlat[0];   
                     var lat = lonlat[1];
                     var myPoint = 'POINT(' + lon + ' ' + lat + ')';
-                    //alert("myPoint: " + myPoint);
-                    //*
                     $.ajax({
                         type: "POST",
                         url: "APIthongke.php",
-                        //dataType: 'json',
-                        //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
                         data: {functionname: 'getInfoCMRToAjax', paPoint: myPoint},
                         success : function (result, status, erro) {
                             displayObjInfo(result, evt.coordinate );
@@ -241,7 +222,6 @@
                     $.ajax({
                         type: "POST",
                         url: "APIthongke.php",
-                        //dataType: 'json',
                         data: {functionname: 'getGeoCMRToAjax', paPoint: myPoint},
                         success : function (result, status, erro) {
                             highLightObj(result);
@@ -251,7 +231,6 @@
                         }
                     });
                     displayInfoCovid()
-                    //*/
                 });
                 // Thống kê các vùng, khi click vào tên trong list thống kê, hiển thị bản đồ ở đó
                 function displayGeoStatistic(result) {
@@ -309,11 +288,276 @@
 
                     }
                 }
-                
-                //Kết thúc Thống kê các vùng, khi click vào tên trong list thống kê, hiển thị bản đồ ở đó
-            };
-        //});
 
+                //Đổ màu vùng xanh
+                var style1 = {
+                    'MultiPolygon': new ol.style.Style({
+                        fill: new ol.style.Fill({
+                            color: 'rgba(103,228,78,0.4)'
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: 'rgba(103,228,78,1)', 
+                            width: 0.5
+                        })
+                    })
+
+                };
+                var styleFunction1 = function (
+                    feature) {
+                    return style1[feature.getGeometry().getType()];
+                };
+                var vectorLayer = new ol.layer.Vector({
+                    style: styleFunction1
+                });
+                map.addLayer(vectorLayer);
+
+               
+                function highLightGeoJsonObj1(paObjJson) {
+                    var vectorSource = new ol.source.Vector({
+                        features: (new ol.format.GeoJSON()).readFeatures(paObjJson, {
+                            dataProjection: 'EPSG:4326',
+                            featureProjection: 'EPSG:3857'
+                        })
+                    });
+
+                    var vectorLayer = new ol.layer.Vector({
+                        style: styleFunction1,
+                        source: vectorSource
+                    });
+                    map.addLayer(vectorLayer);
+                }
+                function highLightObj1(result) {
+                    var resultjs = JSON.parse(result)
+                    for(let geo of resultjs){
+                        var strObjJson = createJsonObj(geo);
+                        var objJson = JSON.parse(strObjJson);
+                        highLightGeoJsonObj1(objJson);
+                    }
+                }
+                
+                function Test1() {
+                    var lon = 105.142431745547000;
+                    var lat = 10.572287031767900;
+                    var myPoint = 'POINT(106.630784879871996 10.757754740205399)';
+                    var soCa = 50;
+                    $.ajax({
+                        type: "POST",
+                        url: "DomauAPI.php",
+                        data: {functionname: 'getGeoCMRToAjax1', paPoint: myPoint, caNhiem: soCa},
+                        success : function (result, status, erro) {
+                            highLightObj1(result);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
+                    
+                    });
+                };
+                Test1();
+
+                //Đổ màu vùng vàng
+                var style2 = {
+                    'MultiPolygon': new ol.style.Style({
+                        fill: new ol.style.Fill({
+                            color: 'rgba(244,243,61,0.4)'
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: 'rgba(244,243,61,1)', 
+                            width: 0.5
+                        })
+                    })
+
+                };
+                var styleFunction2 = function (
+                    feature) {
+                    return style2[feature.getGeometry().getType()];
+                };
+                var vectorLayer = new ol.layer.Vector({
+                    style: styleFunction2
+                });
+                map.addLayer(vectorLayer);
+                           
+                
+                function highLightGeoJsonObj2(paObjJson) {
+                    var vectorSource = new ol.source.Vector({
+                        features: (new ol.format.GeoJSON()).readFeatures(paObjJson, {
+                            dataProjection: 'EPSG:4326',
+                            featureProjection: 'EPSG:3857'
+                        })
+                    });
+
+                    var vectorLayer = new ol.layer.Vector({
+                        style: styleFunction2,
+                        source: vectorSource
+                    });
+                    map.addLayer(vectorLayer);
+                }
+                function highLightObj2(result) {
+                    var resultjs = JSON.parse(result)
+                    for(let geo of resultjs){
+                        var strObjJson = createJsonObj(geo);
+                        var objJson = JSON.parse(strObjJson);
+                        highLightGeoJsonObj2(objJson);
+                    }
+                }
+                
+                function Test2() {
+                    var lon = 105.142431745547000;
+                    var lat = 10.572287031767900;
+                    var myPoint = 'POINT(106.630784879871996 10.757754740205399)';
+                    var soCa = 50;
+
+                    $.ajax({
+                        type: "POST",
+                        url: "DomauAPI.php",
+                        data: {functionname: 'getGeoCMRToAjax2', paPoint: myPoint, caNhiem: soCa},
+                        success : function (result, status, erro) {
+                            highLightObj2(result);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
+                    
+                    });
+                };
+                Test2();
+
+                //Đổ màu vùng cam
+                var style3 = {
+                    'MultiPolygon': new ol.style.Style({
+                        fill: new ol.style.Fill({
+                            color: 'rgba(255,147,22,0.4)'
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: 'rgb(255,147,22,1)', 
+                            width: 0.5
+                        })
+                    })
+
+                };
+                var styleFunction3 = function (
+                    feature) {
+                    return style3[feature.getGeometry().getType()];
+                };
+                var vectorLayer = new ol.layer.Vector({
+                    style: styleFunction3
+                });
+                map.addLayer(vectorLayer);
+
+                function highLightGeoJsonObj3(paObjJson) {
+                    var vectorSource = new ol.source.Vector({
+                        features: (new ol.format.GeoJSON()).readFeatures(paObjJson, {
+                            dataProjection: 'EPSG:4326',
+                            featureProjection: 'EPSG:3857'
+                        })
+                    });
+					
+                    var vectorLayer = new ol.layer.Vector({
+                        style: styleFunction3,
+                        source: vectorSource
+                    });
+                    map.addLayer(vectorLayer);
+                                 }
+                function highLightObj3(result) {
+                    var resultjs = JSON.parse(result)
+                    for(let geo of resultjs){
+                        var strObjJson = createJsonObj(geo);
+                        var objJson = JSON.parse(strObjJson);
+                        highLightGeoJsonObj3(objJson);
+                    }
+                }
+                
+                function Test3() {
+                    var lon = 105.142431745547000;
+                    var lat = 10.572287031767900;
+                    var myPoint = 'POINT(106.630784879871996 10.757754740205399)';
+                    var soCa = 50;
+                   
+                    $.ajax({
+                        type: "POST",
+                        url: "DomauAPI.php",
+                        //dataType: 'json',
+                        data: {functionname: 'getGeoCMRToAjax3', paPoint: myPoint, caNhiem: soCa},
+                        success : function (result, status, erro) {
+                            highLightObj3(result);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
+                    
+                    });
+                };
+                Test3();
+
+                var style4 = {
+                    'MultiPolygon': new ol.style.Style({
+                        fill: new ol.style.Fill({
+                            color: 'rgba(255,22,22,0.4)'
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: 'rgba(255,22,22,1)', 
+                            width: 0.5
+                        })
+                    })
+
+                };
+                var styleFunction4 = function (
+                    feature) {
+                    return style4[feature.getGeometry().getType()];
+                };
+                var vectorLayer = new ol.layer.Vector({
+                    style: styleFunction4
+                });
+                map.addLayer(vectorLayer);
+
+                function highLightGeoJsonObj4(paObjJson) {
+                    var vectorSource = new ol.source.Vector({
+                        features: (new ol.format.GeoJSON()).readFeatures(paObjJson, {
+                            dataProjection: 'EPSG:4326',
+                            featureProjection: 'EPSG:3857'
+                        })
+                    });
+					
+                    var vectorLayer = new ol.layer.Vector({
+                        style: styleFunction4,
+                        source: vectorSource
+                    });
+                    map.addLayer(vectorLayer);
+                                 }
+                function highLightObj4(result) {
+                    var resultjs = JSON.parse(result)
+                    for(let geo of resultjs){
+                        var strObjJson = createJsonObj(geo);
+                        var objJson = JSON.parse(strObjJson);
+                        highLightGeoJsonObj4(objJson);
+                    }
+                }
+               
+                function Test4() {                    
+                    var lon = 105.142431745547000;
+                    var lat = 10.572287031767900;
+                    var myPoint = 'POINT(106.630784879871996 10.757754740205399)';
+                    var soCa = 50;
+                    $.ajax({
+                        type: "POST",
+                        url: "DomauAPI.php",
+                        data: {functionname: 'getGeoCMRToAjax4', paPoint: myPoint, caNhiem: soCa},
+                        success : function (result, status, erro) {
+                            highLightObj4(result);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
+                    
+                    });
+                };
+                Test4();
+
+            
+            
+            };
+    
+      
         </script>
     </body>
     <script src="main.js"></script>
