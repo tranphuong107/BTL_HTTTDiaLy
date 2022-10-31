@@ -205,6 +205,8 @@
                     var objJson = JSON.parse(strObjJson);
                     highLightGeoJsonObj(objJson);
                 }
+                // Phương
+                //Thông tin dịch bệnh tại vùng khi click
                 map.on('singleclick', function (evt) {
                     var lonlat = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
                     var lon = lonlat[0];   
@@ -235,7 +237,9 @@
                     });
                     displayInfoCovid()
                 });
-                // Thống kê các vùng, khi click vào tên trong list thống kê, hiển thị bản đồ ở đó
+                //Kết thúc Phương
+                
+                // Thống kê các vùng, khi click vào tên trong list thống kê, hiển thị bản đồ ở đó Phương
                 function displayGeoStatistic(result) {
                     var resultjs = JSON.parse(result)
                     var x = +resultjs[0];   
@@ -252,46 +256,9 @@
                             view: viewMap
                         });
                 }
-                
-                let clickName = document.querySelectorAll('.tinhThanh');
-                for (const Tinh of clickName) {
-                    console.log(Tinh);
-                    Tinh.onclick = function (){ 
-                    var tenTinh =  Tinh.innerText;
-                    var lon = 105.142431745547000;
-                    var lat = 10.572287031767900;
-                    var myPoint = 'POINT(' + lon + ' ' + lat + ')';
-                   
-                        $.ajax({
-                            type: "POST",
-                            url: "APIthongke.php",
-                            //dataType: 'json',
-                            //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
-                            data: {functionname: 'getGeoStatistic', paPoint: myPoint, tinh: tenTinh},
-                            success : function (result, status, error) {
-                                displayGeoStatistic(result);
-                            },
-                            error: function (req, status, error) {
-                                alert(req + " " + status + " " + error);
+                // kết thúc thống kê các vùng, khi click vào tên trong list thống kê, hiển thị bản đồ ở đó
 
-                            }
-                        }); 
-                        $.ajax({
-                            type: "POST",
-                            url: "APIthongke.php",
-                            //dataType: 'json',
-                            data: {functionname: 'getGeoThongkeToAjax', paPoint: myPoint, tinh: tenTinh},
-                            success : function (result1, status, erro) {
-                                highLightObj(result1);
-                            },
-                            error: function (req, status, error) {
-                                alert(req + " " + status + " " + error);
-                            }
-                        });
-
-                    }
-                }
-
+                // My
                 //Đổ màu vùng xanh
                 function highLightGeoJsonObj1(paObjJson) {
                     var style1 = {
@@ -434,7 +401,6 @@
                 
 
                 function highLightGeoJsonObj3(paObjJson) {
-
                     var style3 = {
                     'MultiPolygon': new ol.style.Style({
                         fill: new ol.style.Fill({
@@ -567,10 +533,11 @@
                     });
                 };
                 Test4();
+            // kết thúc My
 
-
-                // Thống kê vùng 
-                //vung xanh
+            // Hường
+            // Thống kê vùng 
+            //vung xanh
             function getThongTinTinh1() {
                     $.ajax({
                         type: "POST",
@@ -817,7 +784,8 @@
                     }  
                 }
             getThongTinTinh4();
-            };
+            // kết thúc Hường
+        };
     
       
         </script>
