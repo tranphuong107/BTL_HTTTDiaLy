@@ -14,72 +14,102 @@
 
         <script src="http://localhost:8081/libs/jquery/jquery-3.4.1.min.js" type="text/javascript"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
-
-        <style>
-            /*
-            .map, .righ-panel {
-                height: 500px;
-                width: 80%;
-                float: left;
-            }
-            */
-            /* .map, .righ-panel {
-                height: 98vh;
-                width: 80vw;
-                float: left;
-            } */
-            .map {
-                position: relative;
-                /* border: 1px solid #000; */
-                height: 100vh;
-            }
-            #info{
-                width: 200px;
-                position: absolute;
-                right: 10px;
-                top: 50px;
-                z-index: 1;
-                background-color: #f2f3f4;
-                min-height: 250px;
-                border-radius: 5px;
-                display: none;
-            }
-            .header-infor{
-                text-align: center;
-                background-color: #0892d0;
-                color: #f2f3f4;
-                margin: 0;
-                padding: 0.5px;
-                border-radius: 5px 5px 0 0;
-                position: relative;
-            }
-            /* .header-infor > i{
-                color: #333;
-                position: absolute;
-                right: 10px;
-                top: 40%;
-                
-            } */
-            .content-info{
-                margin-left: 40px;
-            }
-            .infor-fail > p {
-                text-align: center;
-            }
-        </style>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body onload="initialize_map();">
         
                     <div id="map" class="map">
                         <div id="info">
+                            <div class ="header-infor">
+                                <p>Thông tin vùng</p>
+                                <i class="fa-solid fa-xmark cancel"></i>
+                            </div>
+                            <div id="content-infor"></div>
                         </div>
                     </div>
                     <!--<div id="map" style="width: 80vw; height: 100vh;"></div>-->
-                
+                    <div class="thongKe" id='thongKe'>
+                        <div class ="header-thongKe">
+                            <p>Thống kê vùng dịch bệnh</p>
+                            <i class="fa-solid fa-xmark cancel"></i>
+                        </div>
+                        <ul class ="list">
+                            <li class ="list-item red">
+                                <div class ="dot dot_red"></div>
+                                <span class="list-span">Vùng nguy cơ rất cao</span>
+                            </li>
+                            <div id='thongke' class ="content-list-item list-item-red">
+                                        <ul>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li>
+                                        </ul>
+                            </div>
+                            <li class ="list-item orange">
+                                <div class ="dot dot_orange"></div>
+                                <span class="list-span">Vùng nguy cơ cao</span>
+                                
+                            </li>
+                            <div class ="content-list-item list-item">
+                                        <ul>
+                                        <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li>
+                                        </ul>
+                            </div>
+                            <li class ="list-item yellow">
+                                <div class ="dot dot_yellow"></div>
+                                <span class="list-span">Vùng nguy cơ trung bình</span>
+                            </li>   
+                            <div class ="content-list-item list-item">
+                                        <ul>
+                                        <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li>
+                                        </ul>
+                            </div>
+                            <li class ="list-item green">
+                                <div class ="dot dot_green"></div>
+                                <span class="list-span">Vùng nguy cơ thấp</span>
+                            </li>
+                            <div class ="content-list-item list-item">
+                                        <ul>
+                                        <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li>
+                                        </ul>
+                            </div>
+                        </ul>
+                    </div>
+
                     
                     <!-- <button>Button</button> -->
               
-        <?php include 'inforAPItest.php' ?>
+        <?php include 'APIthongke.php' ?>
         <script>
         //$("#document").ready(function () {
             var format = 'image/png';
@@ -186,7 +216,7 @@
                 {
                     //alert("result: " + result);
                     //alert("coordinate des: " + coordinate);
-					$("#info").html(result);
+					$("#content-infor").html(result);
                 }
                 function displayInfoCovid() {
                     document.getElementById('info').style.display = 'block';
@@ -228,7 +258,7 @@
                     //*
                     $.ajax({
                         type: "POST",
-                        url: "inforAPItest.php",
+                        url: "APIthongke.php",
                         //dataType: 'json',
                         //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
                         data: {functionname: 'getInfoCMRToAjax', paPoint: myPoint},
@@ -242,7 +272,7 @@
                     });
                     $.ajax({
                         type: "POST",
-                        url: "inforAPItest.php",
+                        url: "APIthongke.php",
                         //dataType: 'json',
                         data: {functionname: 'getGeoCMRToAjax', paPoint: myPoint},
                         success : function (result, status, erro) {
@@ -260,17 +290,6 @@
                     var resultjs = JSON.parse(result)
                     var x = +resultjs[0];   
                     var y = +resultjs[1];
-                    // alignMap() {
-                    //     MapValues.view.on('change:center', function () {
-                    //     MapValues.mapCenter = transform(MapValues.view.getCenter(), 'EPSG:3857', 'EPSG:4326');
-                    //     MapValues.googleLat = MapValues.mapCenter[1];
-                    //     MapValues.googleLng = MapValues.mapCenter[0];
-                    //     });
-                    //     MapValues.view.on('change:resolution', function () {
-                    //     MapValues.googleZoom = MapValues.view.getZoom();
-                    //     });
-                    // }
-                    // alignMap()
                         var viewMap = new ol.View({
                             center: ol.proj.fromLonLat([x, y]),
                             zoom: 8
@@ -284,16 +303,15 @@
                         });
                 }
                 
-                let clickName = document.querySelector('#info');
+                let clickName = document.querySelector('.tinhThanh');
                 clickName.onclick = function (){ 
-                    map = ''
                     var lon = 105.142431745547000;
                     var lat = 10.572287031767900;
                     var myPoint = 'POINT(' + lon + ' ' + lat + ')';
                    
                     $.ajax({
                         type: "POST",
-                        url: "inforAPItest.php",
+                        url: "APIthongke.php",
                         //dataType: 'json',
                         //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
                         data: {functionname: 'getGeoStatistic', paPoint: myPoint},
@@ -304,16 +322,26 @@
                             alert(req + " " + status + " " + error);
 
                         }
+                    }); 
+                    $.ajax({
+                        type: "POST",
+                        url: "APIthongke.php",
+                        //dataType: 'json',
+                        data: {functionname: 'getGeoThongkeToAjax', paPoint: myPoint},
+                        success : function (result1, status, erro) {
+                            highLightObj(result1);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
                     });
-
-                   
 
                 }
                 //Kết thúc Thống kê các vùng, khi click vào tên trong list thống kê, hiển thị bản đồ ở đó
-            //};
+            };
         //});
-            }
+
         </script>
     </body>
-    <script src="infor.js"></script>
+    <script src="main.js"></script>
 </html>
