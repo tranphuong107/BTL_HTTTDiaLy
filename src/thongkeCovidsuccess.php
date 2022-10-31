@@ -286,7 +286,7 @@
                             //dataType: 'json',
                             //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
                             data: {functionname: 'getGeoStatistic', paPoint: myPoint, tinh: tenTinh},
-                            success : function (result, status, erro) {
+                            success : function (result, status, error) {
                                 displayGeoStatistic(result);
                             },
                             error: function (req, status, error) {
