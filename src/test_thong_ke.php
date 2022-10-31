@@ -310,9 +310,9 @@
 
                 }
                 //Kết thúc Thống kê các vùng, khi click vào tên trong list thống kê, hiển thị bản đồ ở đó
-            };
+            //};
         //});
-
+            }
         </script>
     </body>
     <script src="infor.js"></script>

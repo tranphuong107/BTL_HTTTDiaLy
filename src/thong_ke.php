@@ -15,6 +15,7 @@
         <script src="http://localhost:8081/libs/jquery/jquery-3.4.1.min.js" type="text/javascript"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
         <link rel="stylesheet" href="style.css">
+        
     </head>
     <body onload="initialize_map();">
         
@@ -37,10 +38,19 @@
                             <li class ="list-item red">
                                 <div class ="dot dot_red"></div>
                                 <span class="list-span">Vùng nguy cơ rất cao</span>
+                                
                             </li>
-                            <div id='thongke' class ="content-list-item list-item-red">
+                            <div id='thongke_do' class ="content-list-item list-item-red">
                                         <ul>
-                                        <li class ="tinhThanh">Đà Nẵng</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li>
                                         </ul>
                             </div>
                             <li class ="list-item orange">
@@ -48,27 +58,51 @@
                                 <span class="list-span">Vùng nguy cơ cao</span>
                                 
                             </li>
-                            <div class ="content-list-item list-item">
+                            <div id='thongke_cam' class ="content-list-item list-item">
                                         <ul>
-                                        <li class ="tinhThanh">An Giang</li>
+                                        <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li>
                                         </ul>
                             </div>
                             <li class ="list-item yellow">
                                 <div class ="dot dot_yellow"></div>
                                 <span class="list-span">Vùng nguy cơ trung bình</span>
                             </li>   
-                            <div class ="content-list-item list-item">
+                            <div id='thongke_vang' class ="content-list-item list-item">
                                         <ul>
-                                        <li class ="tinhThanh">Hồ Chí Minh</li>
+                                        <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li>
                                         </ul>
                             </div>
                             <li class ="list-item green">
                                 <div class ="dot dot_green"></div>
                                 <span class="list-span">Vùng nguy cơ thấp</span>
                             </li>
-                            <div class ="content-list-item list-item">
+                            <div id='thongke_xanh' class ="content-list-item list-item">
                                         <ul>
-                                        <li class ="tinhThanh">Cà Mau</li>
+                                        <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li><li class ="tinhThanh">Hồ Chí Minh</li>
+                                            <li>Hà Nội</li>
+                                            <li>Đà Nẵng</li>
                                         </ul>
                             </div>
                         </ul>
@@ -77,7 +111,7 @@
                     
                     <!-- <button>Button</button> -->
               
-        <?php include 'APIthongke.php' ?>
+        <?php include 'thong_ke_API_huong.php' ?>
         <script>
         //$("#document").ready(function () {
             var format = 'image/png';
@@ -100,7 +134,7 @@
                 var layerCMR_adm1 = new ol.layer.Image({
                     source: new ol.source.ImageWMS({
                         ratio: 1,
-                        url: 'http://localhost:8080/geoserver/example/wms?',
+                        url: 'http://localhost:8080/geoserver/BTL/wms?',
                         params: {
                             'FORMAT': format,
                             'VERSION': '1.1.1',
@@ -113,7 +147,7 @@
                 var  layerCovid = new ol.layer.Image({
                     source: new ol.source.ImageWMS({
                         ratio: 1,
-                        url: 'http://localhost:8080/geoserver/example/wms?',
+                        url: 'http://localhost:8080/geoserver/BTL/wms?',
                         params: {
                             'FORMAT': format,
                             'VERSION': '1.1.1',
@@ -271,49 +305,169 @@
                         });
                 }
                 
-                let clickName = document.querySelectorAll('.tinhThanh');
-                for (const Tinh of clickName) {
-
-                    Tinh.onclick = function (){ 
-                    var tenTinh =  Tinh.innerText;
+                let clickName = document.querySelector('.tinhThanh');
+                clickName.onclick = function (){ 
                     var lon = 105.142431745547000;
                     var lat = 10.572287031767900;
                     var myPoint = 'POINT(' + lon + ' ' + lat + ')';
                    
-                        $.ajax({
-                            type: "POST",
-                            url: "APIthongke.php",
-                            //dataType: 'json',
-                            //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
-                            data: {functionname: 'getGeoStatistic', paPoint: myPoint, tinh: tenTinh},
-                            success : function (result, status, erro) {
-                                displayGeoStatistic(result);
-                            },
-                            error: function (req, status, error) {
-                                alert(req + " " + status + " " + error);
+                    $.ajax({
+                        type: "POST",
+                        url: "thong_ke_API_huong.php",
+                        //dataType: 'json',
+                        //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
+                        data: {functionname: 'getGeoStatistic', paPoint: myPoint},
+                        success : function (result, status, erro) {
+                            displayGeoStatistic(result);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
 
-                            }
-                        }); 
-                        $.ajax({
-                            type: "POST",
-                            url: "APIthongke.php",
-                            //dataType: 'json',
-                            data: {functionname: 'getGeoThongkeToAjax', paPoint: myPoint, tinh: tenTinh},
-                            success : function (result1, status, erro) {
-                                highLightObj(result1);
-                            },
-                            error: function (req, status, error) {
-                                alert(req + " " + status + " " + error);
-                            }
-                        });
+                        }
+                    }); 
+                    $.ajax({
+                        type: "POST",
+                        url: "thong_ke_API_huong.php",
+                        //dataType: 'json',
+                        data: {functionname: 'getGeoThongkeToAjax', paPoint: myPoint},
+                        success : function (result1, status, erro) {
+                            highLightObj(result1);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
+                        }
+                    });
 
-                    }
                 }
-                
                 //Kết thúc Thống kê các vùng, khi click vào tên trong list thống kê, hiển thị bản đồ ở đó
-            };
-        //});
+            //};
+            function getThongTinTinh1() {
+                    //alert("coordinate org: " + evt.coordinate);
+                    //var myPoint = 'POINT(12,5)';
+                   // var lonlat = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
+                   var lon = 105.142431745547000;
+                    var lat = 10.572287031767900;
+                    var myPoint = 'POINT(' + lon + ' ' + lat + ')';
+                    //alert("myPoint: " + myPoint);
+                    //*
+                    $.ajax({
+                        type: "POST",
+                        url: "thong_ke_API_huong.php",
+                        //dataType: 'json',
+                        //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
+                        data: {functionname: 'getTinh1', paPoint: myPoint},
+                        success : function (result, status, erro) {
+                            displayThongTinTinh1(result);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
 
+                        }
+                    });
+            };
+            function displayThongTinTinh1(result, coordinate)
+                {
+                    
+                    //alert("coordinate des: " + coordinate);
+					$("#thongke_xanh").html(result);
+                    console.log("result: " + result);
+                }
+            getThongTinTinh1();
+
+            //Vung vang
+            function getThongTinTinh2() {
+                   var lon = 105.142431745547000;
+                    var lat = 10.572287031767900;
+                    var myPoint = 'POINT(' + lon + ' ' + lat + ')';
+                    //alert("myPoint: " + myPoint);
+                    //*
+                    $.ajax({
+                        type: "POST",
+                        url: "thong_ke_API_huong.php",
+                        //dataType: 'json',
+                        //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
+                        data: {functionname: 'getTinh2', paPoint: myPoint},
+                        success : function (result, status, erro) {
+                            displayThongTinTinh2(result);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
+
+                        }
+                    });
+            };
+            function displayThongTinTinh2(result, coordinate)
+                {
+                    
+                    //alert("coordinate des: " + coordinate);
+					$("#thongke_vang").html(result);
+                    console.log("result: " + result);
+                }
+            getThongTinTinh2();
+
+            //Vung cam
+            function getThongTinTinh3() {
+                   var lon = 105.142431745547000;
+                    var lat = 10.572287031767900;
+                    var myPoint = 'POINT(' + lon + ' ' + lat + ')';
+                    //alert("myPoint: " + myPoint);
+                    //*
+                    $.ajax({
+                        type: "POST",
+                        url: "thong_ke_API_huong.php",
+                        //dataType: 'json',
+                        //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
+                        data: {functionname: 'getTinh3', paPoint: myPoint},
+                        success : function (result, status, erro) {
+                            displayThongTinTinh3(result);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
+
+                        }
+                    });
+            };
+            function displayThongTinTinh3(result, coordinate)
+                {
+                    
+                    //alert("coordinate des: " + coordinate);
+					$("#thongke_cam").html(result);
+                    console.log("result: " + result);
+                }
+            getThongTinTinh3();
+
+            //Vung do
+            function getThongTinTinh4() {
+                   var lon = 105.142431745547000;
+                    var lat = 10.572287031767900;
+                    var myPoint = 'POINT(' + lon + ' ' + lat + ')';
+                    //alert("myPoint: " + myPoint);
+                    //*
+                    $.ajax({
+                        type: "POST",
+                        url: "thong_ke_API_huong.php",
+                        //dataType: 'json',
+                        //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
+                        data: {functionname: 'getTinh4', paPoint: myPoint},
+                        success : function (result, status, erro) {
+                            displayThongTinTinh4(result);
+                        },
+                        error: function (req, status, error) {
+                            alert(req + " " + status + " " + error);
+
+                        }
+                    });
+            };
+            function displayThongTinTinh4(result, coordinate)
+                {
+                    
+                    //alert("coordinate des: " + coordinate);
+					$("#thongke_do").html(result);
+                    console.log("result: " + result);
+                }
+            getThongTinTinh4();
+        };
+        
         </script>
     </body>
     <script src="main.js"></script>
