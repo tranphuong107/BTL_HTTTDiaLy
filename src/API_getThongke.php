@@ -59,13 +59,9 @@
     {
         $mySQLStr = "SELECT gadm41_vnm_1.name_1 from \"gadm41_vnm_1\", \"dlieu_point\"
          where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and canhiem <= 50 ";
-        
-        //echo $mySQLStr; 
-        //echo "<br><br>";
         $result = query($paPDO, $mySQLStr);
-        //echo json_encode($result);
-
         $ketqua = array();
+
         if ($result != null)
         {
             // Lặp kết quả
@@ -75,12 +71,9 @@
             $resFin = '<ul>';
             foreach ($ketqua as $item){
                 $resFin = $resFin.'<li class ="tinhThanh">'.$item.'</li>';
-                //echo $item;
             }
             $resFin = $resFin.'</ul>';
-            //echo json_encode($resFin);
             return $resFin;
-            //echo json_encode($ketqua);
 
         }
         else
@@ -93,11 +86,7 @@
     {
         $mySQLStr = "SELECT gadm41_vnm_1.name_1 from \"gadm41_vnm_1\", \"dlieu_point\"
          where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and canhiem <= 100 and canhiem > 50 ";
-        
-        //echo $mySQLStr; 
-        //echo "<br><br>";
         $result = query($paPDO, $mySQLStr);
-        //echo json_encode($result);
 
         $ketqua = array();
         if ($result != null)
@@ -109,12 +98,9 @@
             $resFin = '<ul>';
             foreach ($ketqua as $item){
                 $resFin = $resFin.'<li class ="tinhThanh">'.$item.'</li>';
-                //echo $item;
             }
             $resFin = $resFin.'</ul>';
-            //echo json_encode($resFin);
             return $resFin;
-            //echo json_encode($ketqua);
 
         }
         else
@@ -127,13 +113,9 @@
     {
         $mySQLStr = "SELECT gadm41_vnm_1.name_1 from \"gadm41_vnm_1\", \"dlieu_point\"
          where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and canhiem <= 150 and canhiem >100 ";
-        
-        //echo $mySQLStr; 
-        //echo "<br><br>";
         $result = query($paPDO, $mySQLStr);
-        //echo json_encode($result);
-
         $ketqua = array();
+
         if ($result != null)
         {
             // Lặp kết quả
@@ -143,12 +125,9 @@
             $resFin = '<ul>';
             foreach ($ketqua as $item){
                 $resFin = $resFin.'<li class ="tinhThanh">'.$item.'</li>';
-                //echo $item;
             }
             $resFin = $resFin.'</ul>';
-            //echo json_encode($resFin);
             return $resFin;
-            //echo json_encode($ketqua);
 
         }
         else
@@ -161,11 +140,7 @@
     {
         $mySQLStr = "SELECT gadm41_vnm_1.name_1 from \"gadm41_vnm_1\", \"dlieu_point\"
          where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and canhiem > 150 ";
-        
-        //echo $mySQLStr; 
-        //echo "<br><br>";
         $result = query($paPDO, $mySQLStr);
-        //echo json_encode($result);
 
         $ketqua = array();
         if ($result != null)
@@ -177,13 +152,9 @@
             $resFin = '<ul>';
             foreach ($ketqua as $item){
                 $resFin = $resFin.'<li class ="tinhThanh">'.$item.'</li>';
-
-                //echo $item;
             }
             $resFin = $resFin.'</ul>';
-            //echo json_encode($resFin);
             return $resFin;
-            //echo json_encode($ketqua);
 
         }
         else

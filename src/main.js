@@ -15,11 +15,9 @@ for (const item of listItem) {
         let display = getComputedStyle(listChild).display;
         if (display == 'block'){
             listChild.style.display = 'none';
-            // listChild.style.height = '200px';
         }
         else{
             listChild.style.display = 'block';
-            // listChild.style.height = '200px';
         }
           
     }
