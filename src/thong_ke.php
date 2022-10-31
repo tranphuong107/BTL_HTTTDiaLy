@@ -15,6 +15,7 @@
         <script src="http://localhost:8081/libs/jquery/jquery-3.4.1.min.js" type="text/javascript"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
         <link rel="stylesheet" href="style.css">
+        
     </head>
     <body onload="initialize_map();">
         
@@ -37,6 +38,7 @@
                             <li class ="list-item red">
                                 <div class ="dot dot_red"></div>
                                 <span class="list-span">Vùng nguy cơ rất cao</span>
+                                
                             </li>
                             <div id='thongke_do' class ="content-list-item list-item-red">
                                         <ul>
