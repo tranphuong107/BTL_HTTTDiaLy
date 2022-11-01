@@ -2,7 +2,7 @@
     if(isset($_POST['functionname'])) 
     {
         $paPDO = initDB();
-        $paSRID = '0'; 
+        $paSRID = '4326'; 
         $paPoint = $_POST['paPoint'];
         $functionname = $_POST['functionname'];
         
@@ -84,7 +84,7 @@
         else
             return "null";
     }
-    getGeoCMRToAjax1(initDB(),50);
+    // getGeoCMRToAjax1(initDB(),50);
 
     function getGeoCMRToAjax2($paPDO)
     {
@@ -103,7 +103,7 @@
         else
             return "null";
     }
-    getGeoCMRToAjax2(initDB());
+    // getGeoCMRToAjax2(initDB());
 
     function getGeoCMRToAjax3($paPDO)
     {
@@ -123,7 +123,7 @@
         else
             return "null";
     }
-    getGeoCMRToAjax3(initDB());
+    // getGeoCMRToAjax3(initDB());
 
     function getGeoCMRToAjax4($paPDO)
     {
@@ -144,6 +144,6 @@
         else
             return "null";
     }
-    getGeoCMRToAjax4(initDB());
+    // getGeoCMRToAjax4(initDB());
     
 ?>
