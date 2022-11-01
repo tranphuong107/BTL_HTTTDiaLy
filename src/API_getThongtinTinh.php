@@ -2,7 +2,7 @@
     if(isset($_POST['functionname'])) 
     {
         $paPDO = initDB();
-        $paSRID = '4326'; 
+        $paSRID = '0'; 
         $paPoint = $_POST['paPoint'];
         $functionname = $_POST['functionname'];
         $aResult = "null";
@@ -59,40 +59,11 @@
         // Ngắt kết nối
         $paPDO = null;
     }
-    function getResult($paPDO,$paSRID,$paPoint)
-    {
-        //echo $paPoint;
-        //echo "<br>";
-        $paPoint = str_replace(',', ' ', $paPoint);
-        //echo $paPoint;
-        //echo "<br>";
-        //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where ST_Within('SRID=4326;POINT(12 5)'::geometry,geom)";
-        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
-        //echo $mySQLStr;
-        //echo "<br><br>";
-        $result = query($paPDO, $mySQLStr);
-        
-        if ($result != null)
-        {
-            // Lặp kết quả
-            foreach ($result as $item){
-                return $item['geo'];
-            }
-        }
-        else
-            return "null";
-    }
+    
     function getGeoCMRToAjax($paPDO,$paSRID,$paPoint)
     {
-        //echo $paPoint;
-        //echo "<br>";
         $paPoint = str_replace(',', ' ', $paPoint);
-        //echo $paPoint;
-        //echo "<br>";
-        //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where ST_Within('SRID=4326;POINT(12 5)'::geometry,geom)";
         $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
-        //echo $mySQLStr;
-        //echo "<br><br>";
         $result = query($paPDO, $mySQLStr);
         
         if ($result != null)
@@ -107,17 +78,9 @@
     }
     function getInfoCMRToAjax($paPDO,$paSRID,$paPoint)
     {
-        //echo $paPoint;
-        //echo "<br>";
         $paPoint = str_replace(',', ' ', $paPoint);
-        //echo $paPoint;
-        //echo "<br>";
-        //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where ST_Within('SRID=4326;POINT(12 5)'::geometry,geom)";
-        //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
         $mySQLStr = "SELECT gadm41_vnm_1.name_1, canhiem, canhiemmoi, catuvong from \"gadm41_vnm_1\", \"dlieu_point\"
          where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,gadm41_vnm_1.geom)";
-        //echo $mySQLStr; 
-        //echo "<br><br>";
         $result = query($paPDO, $mySQLStr);
         
         if ($result != null)
@@ -148,8 +111,6 @@
     function getGeoStatistic($paPDO,$paSRID,$tinh)  {
         $mySQLStr = "SELECT x, y from dlieu_point, gadm41_vnm_1 
         where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and name_1 = '".$tinh."'";
-        // echo $tinh;
-        // echo $mySQLStr;
         // lấy x, y để biểu diễn bản đồ được click, hai điểm này sẽ đc lấy làm center của map để hiển thị bản đồ
         $result = query($paPDO, $mySQLStr);
 
@@ -163,20 +124,11 @@
         else
             return "null 99";
     }
-    // getGeoStatistic(initDB(),'4326','Hồ Chí Minh');
 
     function getGeoThongkeToAjax($paPDO,$paSRID,$tinh)
     {
-        //echo $paPoint;
-        //echo "<br>";
-        // $paPoint = str_replace(',', ' ', $paPoint);
-        //echo $paPoint;
-        //echo "<br>";
-        //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"gadm41_vnm_1\" where ST_Within('SRID=4326;POINT(12 5)'::geometry,geom)";
         $mySQLStr = "SELECT ST_AsGeoJson(gadm41_vnm_1.geom) as geo from dlieu_point, gadm41_vnm_1 
         where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and name_1 = '".$tinh."'";
-        // echo $mySQLStr;
-        //echo "<br><br>";
         $result = query($paPDO, $mySQLStr);
         
         if ($result != null)
@@ -189,5 +141,4 @@
         else
             return "null";
     }
-    // getGeoThongkeToAjax(initDB(),'4326','Ho Chi Minh');
 ?>

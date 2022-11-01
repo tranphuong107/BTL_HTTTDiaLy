@@ -2,7 +2,7 @@
     if(isset($_POST['functionname'])) 
     {
         $paPDO = initDB();
-        $paSRID = '4326'; 
+        $paSRID = '0'; 
         $paPoint = $_POST['paPoint'];
         $functionname = $_POST['functionname'];
         
@@ -71,8 +71,8 @@
         $mySQLStr = "SELECT ST_AsGeoJson(gadm41_vnm_1.geom) as geo from dlieu_point, gadm41_vnm_1 
          where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and canhiem <= ".$caNhiem." ";
         $result = query($paPDO, $mySQLStr);
-        // echo json_encode($result) ;
         $ketqua = array();
+
         if ($result != null)
         {
             // Lặp kết quả
@@ -110,8 +110,8 @@
         $mySQLStr = "SELECT ST_AsGeoJson(gadm41_vnm_1.geom) as geo from dlieu_point, gadm41_vnm_1 
          where \"gadm41_vnm_1\".gid_1 = \"dlieu_point\".gid_1 and canhiem <= 150 and canhiem >100 ";
         $result = query($paPDO, $mySQLStr);
-        // echo json_encode($result) ;
         $ketqua = array();
+        
         if ($result != null)
         {
             // Lặp kết quả
