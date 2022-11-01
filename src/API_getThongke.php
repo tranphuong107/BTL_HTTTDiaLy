@@ -79,7 +79,7 @@
         else
             return "null";
     }
-    getTinh1(initDB());
+    // getTinh1(initDB());
 
     //Vung vang
     function getTinh2($paPDO)
@@ -106,7 +106,7 @@
         else
             return "null";
     }
-    getTinh2(initDB());
+    // getTinh2(initDB());
 
     //Vung cam
     function getTinh3($paPDO)
@@ -133,7 +133,7 @@
         else
             return "null";
     }
-    getTinh3(initDB());
+    // getTinh3(initDB());
 
     //Vung do
     function getTinh4($paPDO)
@@ -160,6 +160,6 @@
         else
             return "null";
     }
-    getTinh4(initDB());
+    // getTinh4(initDB());
 
 ?>
